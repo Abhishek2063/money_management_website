@@ -1,4 +1,4 @@
-import { API_URL } from "../../common/config";
+import { API_URL } from "../../app/common/config";
 
 const BASE_URL = API_URL;
 

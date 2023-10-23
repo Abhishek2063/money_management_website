@@ -1,4 +1,4 @@
-import { DEFAULT_STATE } from "./auth.state";
+import { DEFAULT_STATE } from "./expanse.state";
 import {
   ERROR_EXPANSEDELETEBYUSERIDINCOMEID,
   ERROR_EXPANSEGETBYUSERID,
@@ -10,7 +10,7 @@ import {
   SUCCESS_EXPANSEUPDATEBYUSERIDEXPANSEID,
 } from "./expanse.action";
 
-export const authReducer = (
+export const expanseReducer = (
   state = DEFAULT_STATE,
   action = {
     type: {},

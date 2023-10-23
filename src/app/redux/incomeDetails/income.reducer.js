@@ -1,4 +1,4 @@
-import { DEFAULT_STATE } from "./auth.state";
+import { DEFAULT_STATE } from "./income.state";
 import {
   ERROR_INCOMEDELETEBYUSERIDINCOMEID,
   ERROR_INCOMEGETBYUSERID,
@@ -10,7 +10,7 @@ import {
   SUCCESS_INCOMEUPDATEBYUSERIDINCOMEID,
 } from "./income.action";
 
-export const authReducer = (
+export const incomeReducer = (
   state = DEFAULT_STATE,
   action = {
     type: {},

@@ -1,4 +1,4 @@
-import { DEFAULT_STATE } from "./auth.state";
+import { DEFAULT_STATE } from "./category.state";
 import {
   ERROR_CATEGORYCREATE,
   ERROR_CATEGORYDELETEBYUSERIDCATEGORYID,
@@ -14,7 +14,7 @@ import {
   SUCCESS_CATEGORYUPDATEBYUSERIDCATEGORYID,
 } from "./category.action";
 
-export const authReducer = (
+export const categoryReducer = (
   state = DEFAULT_STATE,
   action = {
     type: {},

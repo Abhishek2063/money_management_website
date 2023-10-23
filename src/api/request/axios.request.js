@@ -3,7 +3,7 @@ import { config as defaultConfig } from "../config/api.config";
 import history from "../../app/routing/history";
 import { Tokens } from "../../app/storage";
 import { setUserDetails, getUserDetails } from "../../app/storage/user";
-import { LOGIN } from "../../app/routing/routeContants";
+import { LOGIN } from "../../app/routing/routeConstants";
 import { getErrorMessages } from "../../app/common/errorMessageParser";
 import _ from "lodash";
 export const request = async (config) => {
