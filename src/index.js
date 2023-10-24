@@ -9,12 +9,13 @@ import { store } from './app/store/store.factory';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import 'antd/dist/reset.css';
-
+import './app/assets/css/loader.css'
+import Loader from './app/common/loader';
 const root = createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
-    <Suspense fallback="">
+    <Suspense fallback={<Loader />}>
       <Provider store={store}>
         <Router history={history}>
           <AllRoutes />
