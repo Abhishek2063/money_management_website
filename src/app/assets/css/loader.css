@@ -13,8 +13,10 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #f15b05; /* Light mushroom color */
-    z-index: 9999;
-    opacity: 1;
+
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for the overlay */
+    z-index: 9999; /* Place the loader on top of other content */
+    filter: blur(1px); /* Apply blur to the background */
   }
   
   .shapes:before,
