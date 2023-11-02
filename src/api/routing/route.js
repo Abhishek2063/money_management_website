@@ -1,7 +1,6 @@
 import { API_URL } from "../../app/common/config";
 
 const BASE_URL = API_URL;
-
 const URL = (uri) => `${BASE_URL}${uri}`;
 // const URL = (uri) => 'http://localhost:3000/auth/api/login';
 
