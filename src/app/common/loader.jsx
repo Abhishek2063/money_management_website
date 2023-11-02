@@ -1,12 +1,13 @@
-import React from 'react'
-
-const Loader = () => {
+import React from 'react';
+import loaderImage from "../assets/images/dollar-symbol-icons-free-png.webp"
+const MoneyLoader = () => {
   return (
-    <div className="shapes">
-      <div className="shape-before"></div>
-      <div className="shape-after"></div>
-    </div>
-  )
-}
+    <div className="money-symbols">
+     
+      <img src={loaderImage} alt="loaderImage" />
 
-export default Loader
+    </div>
+  );
+};
+
+export default MoneyLoader;

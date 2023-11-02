@@ -20,7 +20,7 @@ const RegistrationMain = () => {
     confirmPassword: "",
   });
   const [formDataError, setFormDataError] = useState([]);
-  const [loader, setLoader] = useState(true);
+  const [loader, setLoader] = useState(false);
 
   const registrationData = useSelector((state) => state.auth.registerData);
   const prevregistrationData = usePrevious({ registrationData });
@@ -52,7 +52,8 @@ const RegistrationMain = () => {
     }
   }, [registrationData, prevregistrationData]);
   return (
-    <div className="registration-container">
+    <div className="registration-container position-relative">
+      
     <div className="registration-page">
       <div className="registration-form">
         <h1>Register Yourself!!!</h1>
@@ -70,8 +71,10 @@ const RegistrationMain = () => {
         </form>
       </div>
     </div>
-
-      {loader && <Loader />}
+    <div className="overlay position-absolute">
+          <div className="">{loader && <Loader />}</div>
+      </div>
+      
     </div>
     
   );
