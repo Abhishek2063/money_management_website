@@ -53,30 +53,29 @@ const RegistrationMain = () => {
   }, [registrationData, prevregistrationData]);
   return (
     <div className="registration-container position-relative">
-      
-    <div className="registration-page">
-      <div className="registration-form">
-        <h1>Register Yourself!!!</h1>
-        <form
-          onSubmit={(e) =>
-            handleSubmit(e, setLoader, formData, setFormDataError, dispatch)
-          }
-        >
-          <FormFields
-            formData={formData}
-            setFormData={setFormData}
-            formDataError={formDataError}
-            setFormDataError={setFormDataError}
-          />
-        </form>
+      <div className="registration-page">
+        <div className="registration-form">
+          <h1>Register Yourself!!!</h1>
+          <form
+            onSubmit={(e) =>
+              handleSubmit(e, setLoader, formData, setFormDataError, dispatch)
+            }
+          >
+            <FormFields
+              formData={formData}
+              setFormData={setFormData}
+              formDataError={formDataError}
+              setFormDataError={setFormDataError}
+            />
+          </form>
+        </div>
       </div>
-    </div>
-    <div className="overlay position-absolute">
+      {loader && (
+        <div className="overlay position-absolute">
           <div className="">{loader && <Loader />}</div>
-      </div>
-      
+        </div>
+      )}
     </div>
-    
   );
 };
 
