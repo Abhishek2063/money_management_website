@@ -29,7 +29,7 @@ const LoginMain = () => {
       if (loginData && _.has(loginData, "data") && loginData.success === true) {
         message.success(loginData.message);
         sessionStorage.setItem("userEmail",formData.email )
-        Tokens.setToken(loginData.data);
+        Tokens.setToken(loginData.data.token);
         User.setUserDetails(loginData.data);
         navigate("/dashboard");
         setLoader(false);

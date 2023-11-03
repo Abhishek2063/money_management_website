@@ -36,3 +36,10 @@ export const getLoginUserById = (data) => ({ type: GETLOGINUSERBYID, data });
 export const SUCCESS_GETLOGINUSERBYID = "SUCCESS_GETLOGINUSERBYID";
 export const ERROR_GETLOGINUSERBYID = "ERROR_GETLOGINUSERBYID";
 export const getLoginUserByIdResponse = (type, data) => ({ type, data });
+
+// LOGOUT
+export const LOGOUT = "LOGOUT";
+export const logout = (data) => ({ type: LOGOUT, data });
+export const SUCCESS_LOGOUT = "SUCCESS_LOGOUT";
+export const ERROR_LOGOUT = "ERROR_LOGOUT";
+export const logoutResponse = (type, data) => ({ type, data });

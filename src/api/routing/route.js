@@ -13,6 +13,7 @@ export const UPDATEUSERBYID = URL("/users/:id");
 
 export const LOGIN = URL("/auth/login");
 export const GETLOGINUSERBYID = URL("/auth/get/:userId");
+export const LOGOUT = URL("/auth/logout/");
 
 /***** Category Routes*********/
 export const CATEGORYCREATE = URL("/categories/create");

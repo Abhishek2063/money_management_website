@@ -2,11 +2,13 @@ import {
   ERROR_GETLOGINUSERBYID,
   ERROR_GETUSERBYID,
   ERROR_LOGIN,
+  ERROR_LOGOUT,
   ERROR_REGISTRATION,
   ERROR_UPDATEUSERBYID,
   SUCCESS_GETLOGINUSERBYID,
   SUCCESS_GETUSERBYID,
   SUCCESS_LOGIN,
+  SUCCESS_LOGOUT,
   SUCCESS_REGISTRATION,
   SUCCESS_UPDATEUSERBYID,
 } from "./auth.action";
@@ -54,6 +56,13 @@ export const authReducer = (
     case ERROR_GETLOGINUSERBYID:
       const errorGetLoginUserByIdData = action.data;
       return { ...state, getLoginUserByIdData: errorGetLoginUserByIdData };
+
+    case SUCCESS_LOGOUT:
+      const logoutUserData = action.data;
+      return { ...state, logoutUserData };
+    case ERROR_LOGOUT:
+      const errorLogoutUserData = action.data;
+      return { ...state, logoutUserData: errorLogoutUserData };
 
     default:
       return state;

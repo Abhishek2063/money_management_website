@@ -4,20 +4,24 @@ import {
   ERROR_GETLOGINUSERBYID,
   ERROR_GETUSERBYID,
   ERROR_LOGIN,
+  ERROR_LOGOUT,
   ERROR_REGISTRATION,
   ERROR_UPDATEUSERBYID,
   GETLOGINUSERBYID,
   GETUSERBYID,
   LOGIN,
+  LOGOUT,
   REGISTRATION,
   SUCCESS_GETLOGINUSERBYID,
   SUCCESS_GETUSERBYID,
   SUCCESS_LOGIN,
+  SUCCESS_LOGOUT,
   SUCCESS_REGISTRATION,
   SUCCESS_UPDATEUSERBYID,
   UPDATEUSERBYID,
   getLoginUserByIdResponse,
   loginResponse,
+  logoutResponse,
   registrationResponse,
   updateUserByIdResponse,
   userGetByIdResponse,
@@ -25,6 +29,7 @@ import {
 import {
   getLoginUserByIdApi,
   loginApi,
+  logoutApi,
   registrationApi,
   updateUserByIdApi,
   userGetByIdApi,
@@ -93,4 +98,17 @@ function* getLoginUserByIdRequest(data) {
 }
 export function* getLoginUserByIdWatcher() {
   yield takeLatest(GETLOGINUSERBYID, getLoginUserByIdRequest);
+}
+
+// logoutUser
+function* logoutUserRequest(data) {
+  let getData = yield logoutApi(data);
+  if (getData.success && _.has(getData, "data.data")) {
+    yield put(logoutResponse(SUCCESS_LOGOUT, getData.data));
+  } else {
+    yield put(logoutResponse(ERROR_LOGOUT, getData.data));
+  }
+}
+export function* logoutUserWatcher() {
+  yield takeLatest(LOGOUT, logoutUserRequest);
 }
