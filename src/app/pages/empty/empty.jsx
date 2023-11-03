@@ -3,7 +3,6 @@ import { DASHBOARD, Navigate, LOGIN, REGISTER } from "./index";
 import { useLocation } from "react-router-dom";
 const Empty = () => {
     const location = useLocation()
-    // console.log(location,'location');
 //   const URL = location.pathname;
 //   const path = URL.split("/");
 //   const id = path[2];

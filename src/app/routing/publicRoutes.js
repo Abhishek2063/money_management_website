@@ -1,10 +1,13 @@
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { DASHBOARD, LOGIN } from "./routeConstants";
+import { DASHBOARD, LOGIN, REGISTER } from "./routeConstants";
 import { isLoggedIn } from "./authServices";
 
 export const DashboardMain = React.lazy(() =>
   import("../pages/dashboard/DashboardMain")
+);
+export const RegistrationMain = React.lazy(() =>
+  import("../pages/registration/registrationMain")
 );
 
 const PublicRoutes = () => {
@@ -14,7 +17,7 @@ const PublicRoutes = () => {
         path="/"
         element={isLoggedIn() ? <Navigate to={DASHBOARD} /> : <Navigate to={LOGIN} />}
       />
-      <Route path={DASHBOARD} element={<DashboardMain />} />
+      <Route path={REGISTER} element={<RegistrationMain />} />
     </Routes>
   );
 };

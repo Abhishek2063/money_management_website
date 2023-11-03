@@ -1,0 +1,81 @@
+/* Registration.css */
+.registration-container {
+  position: relative;
+}
+.registration-page {
+  background-image: url("../images/Money-management (3).png");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: flex-start; /* Shift the content to the left */
+  align-items: center;
+  height: 100vh;
+  padding-left: 120px;
+}
+
+.registration-form {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 60%; /* Adjust the form width as desired */
+  max-width: 400px; /* Limit the maximum width */
+}
+
+.form-group {
+  margin: 10px 0;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold; /* Make labels stand out more */
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border 0.3s; /* Add a transition for hover effect */
+}
+
+.form-input:hover {
+  border: 1px solid #007bff; /* Highlight the input on hover */
+}
+
+
+
+/* Style for the heading element with animations and text-shadow */
+h1 {
+  /* font-size: 24px; */
+  margin: 0 0 20px;
+  text-align: center;
+  color: transparent; /* Make the text transparent */
+  background-image: linear-gradient(
+    45deg,
+    #ff9800,
+    #e91e63,
+    #03a9f4
+  ); /* Gradient background */
+  background-clip: text; /* Clip the text to the background */
+  -webkit-background-clip: text; /* For webkit browsers */
+  animation: colorChange 5s infinite alternate; /* Animation for moving colors */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Add a text shadow */
+}
+
+@keyframes colorChange {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+.field-required{
+    color: rgb(250, 4, 4);
+}
+
+
+
