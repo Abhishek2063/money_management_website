@@ -2,6 +2,7 @@ import { all } from "redux-saga/effects";
 import {
   getLoginUserByIdWatcher,
   loginWatcher,
+  logoutUserWatcher,
   registrationWatcher,
   updateUserByIdWatcher,
   userGetByIdWatcher,
@@ -47,7 +48,7 @@ export function* rootSaga() {
     incomeUpdateByUserIdIncomeIdWatcher(),
     incomeDeleteByUserIdIncomeIdWatcher(),
     categoryCreateWatcher(),
-    expanseStoreWatcher()
-
+    expanseStoreWatcher(),
+    logoutUserWatcher(),
   ]);
 }

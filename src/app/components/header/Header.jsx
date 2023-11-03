@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useEffect,useState}from "react";
 import { Navbar, Nav, Button } from "react-bootstrap";
 import {
   BellOutlined,
@@ -8,9 +8,53 @@ import {
   CreditCardOutlined,
 } from "@ant-design/icons";
 import LogoImage from "../../assets/images/favicon-3.png";
+import { useDispatch, useSelector } from "react-redux";
+import { clearUserDetails, getUserDetails } from "../../storage/user";
+import { logout } from "../../redux/auth/auth.action";
+import { usePrevious } from "../../common/custom";
+import { useNavigate } from "react-router-dom";
+import { message } from "antd";
+import { Tokens } from "../../storage";
+import _ from "lodash";
+import Loader from "../../common/loader";
 
 const Header = () => {
+  const [loader,setLoader] = useState(false)
   const userEmail = sessionStorage.getItem("userEmail");
+const dispatch = useDispatch()
+const userData = getUserDetails()
+  const handleLogout = () => {
+    const data = {
+      userId : userData.userId
+    }
+    dispatch(logout(data))
+  }
+
+  const logoutUser = useSelector((state) => state.auth.logoutUserData);
+  const prevlogoutUser = usePrevious({ logoutUser });
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (prevlogoutUser && prevlogoutUser.logoutUser !== logoutUser) {
+      if (logoutUser && _.has(logoutUser, "data") && logoutUser.success === true) {
+        message.success(logoutUser.message);
+        Tokens.removeLocalData();
+        clearUserDetails();
+        navigate("/auth/login");
+        setLoader(false);
+      }
+      if (logoutUser && logoutUser.success === false) {
+        setLoader(false);
+
+        if (Array.isArray(logoutUser.error)) {
+          message.error("Invalid Data");
+        } else if (typeof logoutUser.error === "string") {
+          message.error(logoutUser.error);
+        } else {
+          message.error("An error occurred."); // Handle other error types as needed
+        }
+      }
+    } // eslint-disable-next-line
+  }, [logoutUser, prevlogoutUser]);
 
   return (
     <div className="money-management mb-10">
@@ -40,10 +84,11 @@ const Header = () => {
             {userEmail}
           </span>
           
-          <Button variant="outline-danger ml-2">Logout</Button>
+          <Button variant="outline-danger ml-2" onClick={handleLogout}>Logout</Button>
           
         </Nav>
       </Navbar>
+      {loader && <Loader />}
     </div>
   );
 };

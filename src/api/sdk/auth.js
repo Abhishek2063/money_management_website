@@ -1,5 +1,5 @@
 import { request } from "../request/axios.request";
-import { GETLOGINUSERBYID, GETUSERBYID, LOGIN, REGISTRATION, UPDATEUSERBYID } from "../routing/route";
+import { GETLOGINUSERBYID, GETUSERBYID, LOGIN, LOGOUT, REGISTRATION, UPDATEUSERBYID } from "../routing/route";
 
 // registration api
 export async function registrationApi(data) {
@@ -49,5 +49,15 @@ export async function getLoginUserByIdApi(data) {
     url: GETLOGINUSERBYID,
     method: "get",
     data: userData,
+  });
+}
+
+// logout api
+export async function logoutApi(data) {
+  let userData = data.data;
+  let url = `${LOGOUT}${userData.userId}`
+  return request({
+    url:url ,
+    method: "post",
   });
 }
