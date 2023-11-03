@@ -1,6 +1,6 @@
 import React from 'react';
 import loaderImage from "../assets/images/dollar-symbol-icons-free-png.webp"
-const MoneyLoader = () => {
+const Loader = () => {
   return (
     <div className="money-symbols">
      
@@ -10,4 +10,4 @@ const MoneyLoader = () => {
   );
 };
 
-export default MoneyLoader;
+export default Loader;
