@@ -5,8 +5,8 @@ import {
   PasswordInput,
   TextInput,
   handleInputChange,
+  handleSubmit,
 } from "../index";
-import { Link } from "react-router-dom";
 import { LOGIN } from "../../../routing/routeConstants";
 const FormFields = (props) => {
   return (
@@ -171,10 +171,25 @@ const FormFields = (props) => {
         isRequired={true}
       />
 
-      <Button type="submit" text="Register" className="submit-button" />
-      <Link to={LOGIN}>
-        <NavigationButton text="Go To Login" className="navigation-button" />
-      </Link>
+      <Button
+        type="submit"
+        text="Register"
+        className="submit-button"
+        onClick={(e) =>
+          handleSubmit(
+            e,
+            props.setLoader,
+            props.formData,
+            props.setFormDataError,
+            props.dispatch
+          )
+        }
+      />
+      <NavigationButton
+        text="Go To Login"
+        className="navigation-button"
+        NavigateTo={LOGIN}
+      />
     </>
   );
 };

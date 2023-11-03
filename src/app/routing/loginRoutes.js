@@ -13,7 +13,7 @@ const LoginRoutes = () => {
         path="/"
         element={isLoggedIn() ? <Navigate to={DASHBOARD} /> : <Navigate to={LOGIN} />}
       />
-      <Route exact key="login" path={LOGIN} element={<LoginMain />} />;
+      <Route exact key="/auth/login" path={LOGIN} element={<LoginMain />} />;
     </Routes>
   );
 };

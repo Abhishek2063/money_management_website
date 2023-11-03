@@ -1,12 +1,15 @@
 // NavigationButton.js
 import React from "react";
+import { Link } from "react-router-dom";
 // import PropTypes from "prop-types";
 
-const NavigationButton = ({ text, onClick , className}) => {
+const NavigationButton = ({ text, onClick, className, NavigateTo }) => {
   return (
-    <button className={className} onClick={onClick}>
-      {text}
-    </button>
+    <Link to={NavigateTo}>
+      <button className={className} onClick={onClick}>
+        {text}
+      </button>
+    </Link>
   );
 };
 

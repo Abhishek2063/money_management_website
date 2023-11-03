@@ -10,9 +10,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import 'antd/dist/reset.css';
 import './app/assets/css/loader.css'
-import './app/assets/css/registration.css'
 import './app/assets/css/button.css'
-
+import "./app/assets/css/common.css"
 
 import Loader from './app/common/loader';
 const root = createRoot(document.getElementById('root'));

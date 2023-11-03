@@ -9,7 +9,7 @@ import {
   FormFields,
   Loader,
 } from "./index";
-
+import "../../assets/css/registration.css";
 const RegistrationMain = () => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -56,16 +56,14 @@ const RegistrationMain = () => {
       <div className="registration-page">
         <div className="registration-form">
           <h1>Register Yourself!!!</h1>
-          <form
-            onSubmit={(e) =>
-              handleSubmit(e, setLoader, formData, setFormDataError, dispatch)
-            }
-          >
+          <form>
             <FormFields
               formData={formData}
               setFormData={setFormData}
               formDataError={formDataError}
               setFormDataError={setFormDataError}
+              setLoader={setLoader}
+              dispatch={dispatch}
             />
           </form>
         </div>
