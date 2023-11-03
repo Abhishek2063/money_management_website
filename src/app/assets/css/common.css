@@ -15,3 +15,46 @@
   top: 7px;
   right: 16px;
 }
+/* Header.css */
+.money-management {
+  display: flex;
+  justify-content: center; /* Center the content horizontally */
+  align-items: center;
+  margin-bottom:80px ;
+}
+.money-management-navbar {
+  background: linear-gradient(to right, #4CAF50, #2196F3); /* Linear color related to money management */
+}
+.nav-link {
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.2s;
+  border-radius: 0.25rem;
+  color: white;
+}
+
+.nav-link:hover {
+  background: linear-gradient(to right, #FFD700, #FFA500); /* Colorful hover effect */
+  color: white;
+}
+
+.email-button {
+  font-weight: bold;
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+}
+
+.email-button:hover {
+  background-color: #0056b3;
+}
+.user-email {
+  font-weight: bold;
+  color: white;
+  margin-right: 10px; /* Add some spacing between the email and buttons */
+}
+
+

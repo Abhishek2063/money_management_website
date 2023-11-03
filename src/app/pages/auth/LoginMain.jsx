@@ -5,7 +5,6 @@ import {
   useSelector,
   _,
   message,
-  handleSubmit,
   FormFields,
   Loader,
 } from "./index";
@@ -29,6 +28,7 @@ const LoginMain = () => {
     if (prevloginData && prevloginData.loginData !== loginData) {
       if (loginData && _.has(loginData, "data") && loginData.success === true) {
         message.success(loginData.message);
+        sessionStorage.setItem("userEmail",formData.email )
         Tokens.setToken(loginData.data);
         User.setUserDetails(loginData.data);
         navigate("/dashboard");

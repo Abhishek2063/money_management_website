@@ -1,9 +1,18 @@
-import React from 'react'
+import React from "react";
+import Footer from "../../components/footer/footer";
+import Header from "../../components/header/Header";
 
 const DashboardMain = () => {
   return (
-    <div>DashboardMain</div>
-  )
-}
+    <>
+      <Header />
+      <div>
+      Come back soon
 
-export default DashboardMain
+      </div>
+      <Footer />
+    </>
+  );
+};
+
+export default DashboardMain;
