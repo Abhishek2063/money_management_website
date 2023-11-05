@@ -6,6 +6,7 @@ import {
   RadarChartOutlined,
   BankOutlined,
   CreditCardOutlined,
+  HomeOutlined,
 } from "@ant-design/icons";
 import LogoImage from "../../assets/images/favicon-3.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -63,6 +64,9 @@ const userData = getUserDetails()
           <img src={LogoImage} alt="Logo" width="40" height="40" />
         </Navbar.Brand>
         <Nav className="mr-auto">
+        <Nav.Link href="/home" className="nav-link">
+            <HomeOutlined /> Home
+          </Nav.Link>
           <Nav.Link href="/dashboard" className="nav-link">
             <DashboardOutlined /> Dashboard
           </Nav.Link>

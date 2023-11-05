@@ -1,0 +1,70 @@
+/* HomePage.css */
+
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+  }
+  
+  .first-section {
+    position: relative;
+    width: 100%;
+  }
+  
+  .first-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+  }
+  
+  .content h1 {
+    font-size: 36px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .content p {
+    font-size: 18px;
+  }
+  
+  .go-to-dashboard-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #0074cc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  .go-to-dashboard-button:hover {
+    background-color: #005a9f;
+  }
+  
+  .second-section {
+    padding: 20px;
+    background-color: #f0f0f0;
+  }
+  
+  .site-details {
+    text-align: center;
+  }
+  
+  .site-details h2 {
+    font-size: 24px;
+  }
+  
