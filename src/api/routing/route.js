@@ -16,6 +16,8 @@ export const GETLOGINUSERBYID = URL("/auth/get/:userId");
 export const LOGOUT = URL("/auth/logout/");
 export const GOOGLE_LOGIN = URL("/auth/google/");
 export const GOOGLE_LOGIN_CALLBACK = URL("/auth/google/callback/success");
+export const FACEBOOK_LOGIN_CALLBACK = URL("/auth/facebook/callback/success");
+
 
 
 

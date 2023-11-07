@@ -1,5 +1,6 @@
 import { all } from "redux-saga/effects";
 import {
+  facebookLoginCallbackWatcher,
   getLoginUserByIdWatcher,
   googleLoginCallbackWatcher,
   googleLoginWatcher,
@@ -54,5 +55,6 @@ export function* rootSaga() {
     logoutUserWatcher(),
     googleLoginWatcher(),
     googleLoginCallbackWatcher(),
+    facebookLoginCallbackWatcher()
   ]);
 }

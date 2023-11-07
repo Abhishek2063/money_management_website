@@ -7,4 +7,5 @@ export const DEFAULT_STATE = {
   logoutUserData: {},
   googleLoginData: {},
   googleLoginCallbackData: {},
+  facebookLoginCallbackData: {},
 };

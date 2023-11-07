@@ -86,6 +86,46 @@ const LoginMain = () => {
     } // eslint-disable-next-line
   }, [googleLoginCallbackData, prevgoogleLoginCallbackData]);
 
+
+  const facebookLoginCallbackData = useSelector(
+    (state) => state.auth.facebookLoginCallbackData
+  );
+  const prevfacebookLoginCallbackData = usePrevious({ facebookLoginCallbackData });
+  useEffect(() => {
+    if (
+      prevfacebookLoginCallbackData &&
+      prevfacebookLoginCallbackData.facebookLoginCallbackData !==
+        facebookLoginCallbackData
+    ) {
+      if (
+        facebookLoginCallbackData &&
+        _.has(facebookLoginCallbackData, "data") &&
+        facebookLoginCallbackData.success === true
+      ) {
+
+        message.success(facebookLoginCallbackData.message);
+        Tokens.setToken(facebookLoginCallbackData.data.token);
+        User.setUserDetails(facebookLoginCallbackData.data);
+        navigate("/dashboard");
+        setLoader(false);
+      }
+      if (
+        facebookLoginCallbackData &&
+        facebookLoginCallbackData.success === false
+      ) {
+        setLoader(false);
+
+        if (Array.isArray(facebookLoginCallbackData.error)) {
+          message.error("Invalid Data");
+        } else if (typeof facebookLoginCallbackData.error === "string") {
+          message.error(facebookLoginCallbackData.error);
+        } else {
+          message.error("An error occurred."); // Handle other error types as needed
+        }
+      }
+    } // eslint-disable-next-line
+  }, [facebookLoginCallbackData, prevfacebookLoginCallbackData]);
+
   return (
     <div className="login-container position-relative">
       <div className="login-page">

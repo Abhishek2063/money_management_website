@@ -1,5 +1,6 @@
 import { request } from "../request/axios.request";
 import {
+  FACEBOOK_LOGIN_CALLBACK,
   GETLOGINUSERBYID,
   GETUSERBYID,
   GOOGLE_LOGIN,
@@ -84,6 +85,17 @@ export async function googleLoginCallbackApi(data) {
   let userData = data.data;
   return request({
     url: GOOGLE_LOGIN_CALLBACK,
+    method: "get",
+    data: userData,
+    withCredentials: true
+  });
+}
+
+// facebookLoginCallback api
+export async function facebookLoginCallbackApi(data) {
+  let userData = data.data;
+  return request({
+    url: FACEBOOK_LOGIN_CALLBACK,
     method: "get",
     data: userData,
     withCredentials: true

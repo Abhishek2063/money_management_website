@@ -1,6 +1,7 @@
 import { put, takeLatest } from "redux-saga/effects";
 import _ from "lodash";
 import {
+  ERROR_FACEBOOKLOGINCALLBACK,
   ERROR_GETLOGINUSERBYID,
   ERROR_GETUSERBYID,
   ERROR_GOOGLELOGIN,
@@ -9,6 +10,7 @@ import {
   ERROR_LOGOUT,
   ERROR_REGISTRATION,
   ERROR_UPDATEUSERBYID,
+  FACEBOOKLOGINCALLBACK,
   GETLOGINUSERBYID,
   GETUSERBYID,
   GOOGLELOGIN,
@@ -16,6 +18,7 @@ import {
   LOGIN,
   LOGOUT,
   REGISTRATION,
+  SUCCESS_FACEBOOKLOGINCALLBACK,
   SUCCESS_GETLOGINUSERBYID,
   SUCCESS_GETUSERBYID,
   SUCCESS_GOOGLELOGIN,
@@ -25,6 +28,7 @@ import {
   SUCCESS_REGISTRATION,
   SUCCESS_UPDATEUSERBYID,
   UPDATEUSERBYID,
+  facebookLoginCallbackResponse,
   getLoginUserByIdResponse,
   googleLoginCallbackResponse,
   googleLoginResponse,
@@ -35,6 +39,7 @@ import {
   userGetByIdResponse,
 } from "./auth.action";
 import {
+  facebookLoginCallbackApi,
   getLoginUserByIdApi,
   googleLoginApi,
   googleLoginCallbackApi,
@@ -151,4 +156,21 @@ function* googleLoginCallbackRequest(data) {
 }
 export function* googleLoginCallbackWatcher() {
   yield takeLatest(GOOGLELOGINCALLBACK, googleLoginCallbackRequest);
+}
+
+// facebookLoginCallback
+function* facebookLoginCallbackRequest(data) {
+  let getData = yield facebookLoginCallbackApi(data);
+  if (getData.success && _.has(getData, "data.data")) {
+    yield put(
+      facebookLoginCallbackResponse(SUCCESS_FACEBOOKLOGINCALLBACK, getData.data)
+    );
+  } else {
+    yield put(
+      facebookLoginCallbackResponse(ERROR_FACEBOOKLOGINCALLBACK, getData.data)
+    );
+  }
+}
+export function* facebookLoginCallbackWatcher() {
+  yield takeLatest(FACEBOOKLOGINCALLBACK, facebookLoginCallbackRequest);
 }

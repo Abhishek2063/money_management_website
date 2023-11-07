@@ -58,3 +58,10 @@ export const googleLoginCallback = (data) => ({ type: GOOGLELOGINCALLBACK, data 
 export const SUCCESS_GOOGLELOGINCALLBACK = "SUCCESS_GOOGLELOGINCALLBACK";
 export const ERROR_GOOGLELOGINCALLBACK = "ERROR_GOOGLELOGINCALLBACK";
 export const googleLoginCallbackResponse = (type, data) => ({ type, data });
+
+// FACEBOOKLOGINCALLBACK
+export const FACEBOOKLOGINCALLBACK = "FACEBOOKLOGINCALLBACK";
+export const facebookLoginCallback = (data) => ({ type: FACEBOOKLOGINCALLBACK, data });
+export const SUCCESS_FACEBOOKLOGINCALLBACK = "SUCCESS_FACEBOOKLOGINCALLBACK";
+export const ERROR_FACEBOOKLOGINCALLBACK = "ERROR_FACEBOOKLOGINCALLBACK";
+export const facebookLoginCallbackResponse = (type, data) => ({ type, data });

@@ -1,4 +1,5 @@
 import {
+  ERROR_FACEBOOKLOGINCALLBACK,
   ERROR_GETLOGINUSERBYID,
   ERROR_GETUSERBYID,
   ERROR_GOOGLELOGIN,
@@ -7,6 +8,7 @@ import {
   ERROR_LOGOUT,
   ERROR_REGISTRATION,
   ERROR_UPDATEUSERBYID,
+  SUCCESS_FACEBOOKLOGINCALLBACK,
   SUCCESS_GETLOGINUSERBYID,
   SUCCESS_GETUSERBYID,
   SUCCESS_GOOGLELOGIN,
@@ -84,6 +86,16 @@ export const authReducer = (
         ...state,
         googleLoginCallbackData: errorGoogleLoginCallbackData,
       };
+
+      case SUCCESS_FACEBOOKLOGINCALLBACK:
+        const facebookLoginCallbackData = action.data;
+        return { ...state, facebookLoginCallbackData };
+      case ERROR_FACEBOOKLOGINCALLBACK:
+        const errorfacebookLoginCallbackData = action.data;
+        return {
+          ...state,
+          facebookLoginCallbackData: errorfacebookLoginCallbackData,
+        };
 
     default:
       return state;

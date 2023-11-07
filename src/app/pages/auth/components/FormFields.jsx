@@ -9,7 +9,7 @@ import {
 } from "../index";
 import { REGISTER } from "../../../routing/routeConstants";
 import { API_URL } from "../../../common/config";
-import { googleLoginCallback } from "../../../redux/auth/auth.action";
+import { facebookLoginCallback, googleLoginCallback } from "../../../redux/auth/auth.action";
 const FormFields = (props) => {
   let timer = null;
   const handleGoogleLogin = (e) => {
@@ -22,12 +22,31 @@ const FormFields = (props) => {
     if (newGoogleLoginWindow) {
       timer = setInterval(() => {
         if (newGoogleLoginWindow.closed) {
+          props.setLoader(true);
           props.dispatch(googleLoginCallback());
           if (timer) clearInterval(timer);
         }
       }, 500);
     }
   };
+
+  const handleFaceBookLogin = (e) => {
+    e.preventDefault();
+    const newGoogleLoginWindow = window.open(
+      `${API_URL}/auth/facebook/`,
+      "_blank",
+      "width=500,height=600"
+    );
+    if (newGoogleLoginWindow) {
+      timer = setInterval(() => {
+        if (newGoogleLoginWindow.closed) {
+          props.setLoader(true);
+          props.dispatch(facebookLoginCallback());
+          if (timer) clearInterval(timer);
+        }
+      }, 500);
+    }
+  }
 
   return (
     <>
@@ -98,6 +117,13 @@ const FormFields = (props) => {
         text="Login with Google"
         className="login-with-google-btn"
         onClick={handleGoogleLogin}
+      />
+
+      <Button
+        type="button"
+        text=" Login with Facebook"
+        className="loginBtn loginBtn--facebook"
+        onClick={handleFaceBookLogin}
       />
 
       <Button
