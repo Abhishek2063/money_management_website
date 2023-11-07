@@ -14,6 +14,10 @@ export const UPDATEUSERBYID = URL("/users/:id");
 export const LOGIN = URL("/auth/login");
 export const GETLOGINUSERBYID = URL("/auth/get/:userId");
 export const LOGOUT = URL("/auth/logout/");
+export const GOOGLE_LOGIN = URL("/auth/google/");
+export const GOOGLE_LOGIN_CALLBACK = URL("/auth/google/callback/success");
+
+
 
 /***** Category Routes*********/
 export const CATEGORYCREATE = URL("/categories/create");

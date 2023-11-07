@@ -1,4 +1,4 @@
-import React , {useEffect,useState}from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar, Nav, Button } from "react-bootstrap";
 import {
   BellOutlined,
@@ -20,23 +20,26 @@ import _ from "lodash";
 import Loader from "../../common/loader";
 
 const Header = () => {
-  const [loader,setLoader] = useState(false)
-  const userEmail = sessionStorage.getItem("userEmail");
-const dispatch = useDispatch()
-const userData = getUserDetails()
+  const [loader, setLoader] = useState(false);
+  const dispatch = useDispatch();
+  const userData = getUserDetails();
   const handleLogout = () => {
     const data = {
-      userId : userData.userId
-    }
-    dispatch(logout(data))
-  }
+      userId: userData.userId,
+    };
+    dispatch(logout(data));
+  };
 
   const logoutUser = useSelector((state) => state.auth.logoutUserData);
   const prevlogoutUser = usePrevious({ logoutUser });
   const navigate = useNavigate();
   useEffect(() => {
     if (prevlogoutUser && prevlogoutUser.logoutUser !== logoutUser) {
-      if (logoutUser && _.has(logoutUser, "data") && logoutUser.success === true) {
+      if (
+        logoutUser &&
+        _.has(logoutUser, "data") &&
+        logoutUser.success === true
+      ) {
         message.success(logoutUser.message);
         Tokens.removeLocalData();
         clearUserDetails();
@@ -59,12 +62,16 @@ const userData = getUserDetails()
 
   return (
     <div className="money-management mb-10">
-      <Navbar className="money-management-navbar d-flex justify-content-center" expand="lg" fixed="top">
+      <Navbar
+        className="money-management-navbar d-flex justify-content-center"
+        expand="lg"
+        fixed="top"
+      >
         <Navbar.Brand href="/dashboard">
           <img src={LogoImage} alt="Logo" width="40" height="40" />
         </Navbar.Brand>
         <Nav className="mr-auto">
-        <Nav.Link href="/home" className="nav-link">
+          <Nav.Link href="/home" className="nav-link">
             <HomeOutlined /> Home
           </Nav.Link>
           <Nav.Link href="/dashboard" className="nav-link">
@@ -81,15 +88,14 @@ const userData = getUserDetails()
           </Nav.Link>
         </Nav>
         <Nav>
-        <Button variant="outline-secondary ml-2">
+          <Button variant="outline-secondary ml-2">
             <BellOutlined />
           </Button>
-          <span className="user-email">
-            {userEmail}
-          </span>
-          
-          <Button variant="outline-danger ml-2" onClick={handleLogout}>Logout</Button>
-          
+          <span className="user-email">{userData.email}</span>
+
+          <Button variant="outline-danger ml-2" onClick={handleLogout}>
+            Logout
+          </Button>
         </Nav>
       </Navbar>
       {loader && <Loader />}

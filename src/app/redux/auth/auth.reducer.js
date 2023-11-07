@@ -1,12 +1,16 @@
 import {
   ERROR_GETLOGINUSERBYID,
   ERROR_GETUSERBYID,
+  ERROR_GOOGLELOGIN,
+  ERROR_GOOGLELOGINCALLBACK,
   ERROR_LOGIN,
   ERROR_LOGOUT,
   ERROR_REGISTRATION,
   ERROR_UPDATEUSERBYID,
   SUCCESS_GETLOGINUSERBYID,
   SUCCESS_GETUSERBYID,
+  SUCCESS_GOOGLELOGIN,
+  SUCCESS_GOOGLELOGINCALLBACK,
   SUCCESS_LOGIN,
   SUCCESS_LOGOUT,
   SUCCESS_REGISTRATION,
@@ -63,6 +67,23 @@ export const authReducer = (
     case ERROR_LOGOUT:
       const errorLogoutUserData = action.data;
       return { ...state, logoutUserData: errorLogoutUserData };
+
+    case SUCCESS_GOOGLELOGIN:
+      const googleLoginData = action.data;
+      return { ...state, googleLoginData };
+    case ERROR_GOOGLELOGIN:
+      const errorGoogleLoginData = action.data;
+      return { ...state, googleLoginData: errorGoogleLoginData };
+
+    case SUCCESS_GOOGLELOGINCALLBACK:
+      const googleLoginCallbackData = action.data;
+      return { ...state, googleLoginCallbackData };
+    case ERROR_GOOGLELOGINCALLBACK:
+      const errorGoogleLoginCallbackData = action.data;
+      return {
+        ...state,
+        googleLoginCallbackData: errorGoogleLoginCallbackData,
+      };
 
     default:
       return state;

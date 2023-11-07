@@ -5,8 +5,8 @@ import {
   useSelector,
   _,
   message,
-  FormFields,
   Loader,
+  FormFields,
 } from "./index";
 import "../../assets/css/login.css";
 import logoImage from "../../assets/images/favicon-3.png";
@@ -28,7 +28,6 @@ const LoginMain = () => {
     if (prevloginData && prevloginData.loginData !== loginData) {
       if (loginData && _.has(loginData, "data") && loginData.success === true) {
         message.success(loginData.message);
-        sessionStorage.setItem("userEmail",formData.email )
         Tokens.setToken(loginData.data.token);
         User.setUserDetails(loginData.data);
         navigate("/dashboard");
@@ -47,6 +46,46 @@ const LoginMain = () => {
       }
     } // eslint-disable-next-line
   }, [loginData, prevloginData]);
+
+  const googleLoginCallbackData = useSelector(
+    (state) => state.auth.googleLoginCallbackData
+  );
+  const prevgoogleLoginCallbackData = usePrevious({ googleLoginCallbackData });
+  useEffect(() => {
+    if (
+      prevgoogleLoginCallbackData &&
+      prevgoogleLoginCallbackData.googleLoginCallbackData !==
+        googleLoginCallbackData
+    ) {
+      if (
+        googleLoginCallbackData &&
+        _.has(googleLoginCallbackData, "data") &&
+        googleLoginCallbackData.success === true
+      ) {
+
+        message.success(googleLoginCallbackData.message);
+        Tokens.setToken(googleLoginCallbackData.data.token);
+        User.setUserDetails(googleLoginCallbackData.data);
+        navigate("/dashboard");
+        setLoader(false);
+      }
+      if (
+        googleLoginCallbackData &&
+        googleLoginCallbackData.success === false
+      ) {
+        setLoader(false);
+
+        if (Array.isArray(googleLoginCallbackData.error)) {
+          message.error("Invalid Data");
+        } else if (typeof googleLoginCallbackData.error === "string") {
+          message.error(googleLoginCallbackData.error);
+        } else {
+          message.error("An error occurred."); // Handle other error types as needed
+        }
+      }
+    } // eslint-disable-next-line
+  }, [googleLoginCallbackData, prevgoogleLoginCallbackData]);
+
   return (
     <div className="login-container position-relative">
       <div className="login-page">

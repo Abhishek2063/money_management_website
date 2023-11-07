@@ -1,6 +1,8 @@
 import { all } from "redux-saga/effects";
 import {
   getLoginUserByIdWatcher,
+  googleLoginCallbackWatcher,
+  googleLoginWatcher,
   loginWatcher,
   logoutUserWatcher,
   registrationWatcher,
@@ -50,5 +52,7 @@ export function* rootSaga() {
     categoryCreateWatcher(),
     expanseStoreWatcher(),
     logoutUserWatcher(),
+    googleLoginWatcher(),
+    googleLoginCallbackWatcher(),
   ]);
 }

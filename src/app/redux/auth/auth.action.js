@@ -43,3 +43,18 @@ export const logout = (data) => ({ type: LOGOUT, data });
 export const SUCCESS_LOGOUT = "SUCCESS_LOGOUT";
 export const ERROR_LOGOUT = "ERROR_LOGOUT";
 export const logoutResponse = (type, data) => ({ type, data });
+
+
+// GOOGLELOGIN
+export const GOOGLELOGIN = "GOOGLELOGIN";
+export const googleLogin = (data) => ({ type: GOOGLELOGIN, data });
+export const SUCCESS_GOOGLELOGIN = "SUCCESS_GOOGLELOGIN";
+export const ERROR_GOOGLELOGIN = "ERROR_GOOGLELOGIN";
+export const googleLoginResponse = (type, data) => ({ type, data });
+
+// GOOGLELOGINCALLBACK
+export const GOOGLELOGINCALLBACK = "GOOGLELOGINCALLBACK";
+export const googleLoginCallback = (data) => ({ type: GOOGLELOGINCALLBACK, data });
+export const SUCCESS_GOOGLELOGINCALLBACK = "SUCCESS_GOOGLELOGINCALLBACK";
+export const ERROR_GOOGLELOGINCALLBACK = "ERROR_GOOGLELOGINCALLBACK";
+export const googleLoginCallbackResponse = (type, data) => ({ type, data });

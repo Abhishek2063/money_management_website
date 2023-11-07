@@ -8,7 +8,27 @@ import {
   handleSubmit,
 } from "../index";
 import { REGISTER } from "../../../routing/routeConstants";
+import { API_URL } from "../../../common/config";
+import { googleLoginCallback } from "../../../redux/auth/auth.action";
 const FormFields = (props) => {
+  let timer = null;
+  const handleGoogleLogin = (e) => {
+    e.preventDefault();
+    const newGoogleLoginWindow = window.open(
+      `${API_URL}/auth/google/`,
+      "_blank",
+      "width=500,height=600"
+    );
+    if (newGoogleLoginWindow) {
+      timer = setInterval(() => {
+        if (newGoogleLoginWindow.closed) {
+          props.dispatch(googleLoginCallback());
+          if (timer) clearInterval(timer);
+        }
+      }, 500);
+    }
+  };
+
   return (
     <>
       <TextInput
@@ -42,7 +62,6 @@ const FormFields = (props) => {
         error={props.formDataError.emailErr}
         isRequired={true}
       />
-
       <PasswordInput
         name="password"
         label="Password"
@@ -74,6 +93,12 @@ const FormFields = (props) => {
         error={props.formDataError.passwordErr}
         isRequired={true}
       />
+      <Button
+        type="button"
+        text="Login with Google"
+        className="login-with-google-btn"
+        onClick={handleGoogleLogin}
+      />
 
       <Button
         type="submit"
@@ -89,6 +114,7 @@ const FormFields = (props) => {
           )
         }
       />
+
       <NavigationButton
         text="Go To Registration"
         className="navigation-button"

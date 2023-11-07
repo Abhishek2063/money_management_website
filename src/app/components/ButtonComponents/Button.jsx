@@ -1,10 +1,10 @@
 // Button.js
 import React from "react";
 
-const Button = ({ type, text, onClick,className }) => {
+const Button = ({ type, text, onClick,className, icon }) => {
   return (
     <button type={type} className={className} onClick={onClick}>
-      {text}
+      {icon ? icon : ""}{text}
     </button>
   );
 };

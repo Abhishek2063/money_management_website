@@ -5,4 +5,6 @@ export const DEFAULT_STATE = {
   updateUserByIdData: {},
   getLoginUserByIdData: {},
   logoutUserData: {},
+  googleLoginData: {},
+  googleLoginCallbackData: {},
 };
