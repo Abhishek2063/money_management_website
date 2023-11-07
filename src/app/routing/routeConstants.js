@@ -4,6 +4,12 @@ export const DASHBOARD = "/dashboard";
 export const Home = "/home";
 export const LOGINSUCCESS = "/auth/login/success";
 export const LOGINERROR = "/auth/login/error";
+export const EXPANSE = "/expanse";
+export const INCOME = "/income";
+export const BUDGET = "/budget";
+
+
+
 
 
 

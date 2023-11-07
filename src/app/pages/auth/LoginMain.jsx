@@ -12,6 +12,7 @@ import "../../assets/css/login.css";
 import logoImage from "../../assets/images/favicon-3.png";
 import { Tokens, User } from "../../storage";
 import { useNavigate } from "react-router-dom";
+import { DASHBOARD } from "../../routing/routeConstants";
 const LoginMain = () => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -30,7 +31,7 @@ const LoginMain = () => {
         message.success(loginData.message);
         Tokens.setToken(loginData.data.token);
         User.setUserDetails(loginData.data);
-        navigate("/dashboard");
+        navigate(DASHBOARD,{replace : true});
         setLoader(false);
       }
       if (loginData && loginData.success === false) {
@@ -62,11 +63,10 @@ const LoginMain = () => {
         _.has(googleLoginCallbackData, "data") &&
         googleLoginCallbackData.success === true
       ) {
-
         message.success(googleLoginCallbackData.message);
         Tokens.setToken(googleLoginCallbackData.data.token);
         User.setUserDetails(googleLoginCallbackData.data);
-        navigate("/dashboard");
+        navigate(DASHBOARD);
         setLoader(false);
       }
       if (
@@ -86,11 +86,12 @@ const LoginMain = () => {
     } // eslint-disable-next-line
   }, [googleLoginCallbackData, prevgoogleLoginCallbackData]);
 
-
   const facebookLoginCallbackData = useSelector(
     (state) => state.auth.facebookLoginCallbackData
   );
-  const prevfacebookLoginCallbackData = usePrevious({ facebookLoginCallbackData });
+  const prevfacebookLoginCallbackData = usePrevious({
+    facebookLoginCallbackData,
+  });
   useEffect(() => {
     if (
       prevfacebookLoginCallbackData &&
@@ -102,11 +103,10 @@ const LoginMain = () => {
         _.has(facebookLoginCallbackData, "data") &&
         facebookLoginCallbackData.success === true
       ) {
-
         message.success(facebookLoginCallbackData.message);
         Tokens.setToken(facebookLoginCallbackData.data.token);
         User.setUserDetails(facebookLoginCallbackData.data);
-        navigate("/dashboard");
+        navigate(DASHBOARD);
         setLoader(false);
       }
       if (

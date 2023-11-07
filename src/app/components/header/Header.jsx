@@ -13,11 +13,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearUserDetails, getUserDetails } from "../../storage/user";
 import { logout } from "../../redux/auth/auth.action";
 import { usePrevious } from "../../common/custom";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { message } from "antd";
 import { Tokens } from "../../storage";
 import _ from "lodash";
 import Loader from "../../common/loader";
+import { LOGIN } from "../../routing/routeConstants";
 
 const Header = () => {
   const [loader, setLoader] = useState(false);
@@ -43,7 +44,7 @@ const Header = () => {
         message.success(logoutUser.message);
         Tokens.removeLocalData();
         clearUserDetails();
-        navigate("/auth/login");
+        navigate(LOGIN);
         setLoader(false);
       }
       if (logoutUser && logoutUser.success === false) {
@@ -67,23 +68,23 @@ const Header = () => {
         expand="lg"
         fixed="top"
       >
-        <Navbar.Brand href="/dashboard">
+        <Navbar.Brand as={NavLink} to="/home">
           <img src={LogoImage} alt="Logo" width="40" height="40" />
         </Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link href="/home" className="nav-link">
+          <Nav.Link as={NavLink} to="/home" className="nav-link">
             <HomeOutlined /> Home
           </Nav.Link>
-          <Nav.Link href="/dashboard" className="nav-link">
+          <Nav.Link as={NavLink} to="/dashboard" className="nav-link">
             <DashboardOutlined /> Dashboard
           </Nav.Link>
-          <Nav.Link href="/dashboard" className="nav-link">
+          <Nav.Link as={NavLink} to="/expanse" className="nav-link">
             <RadarChartOutlined /> Expense
           </Nav.Link>
-          <Nav.Link href="/dashboard" className="nav-link">
+          <Nav.Link as={NavLink} to="/income" className="nav-link">
             <BankOutlined /> Income
           </Nav.Link>
-          <Nav.Link href="/dashboard" className="nav-link">
+          <Nav.Link as={NavLink} to="/budget" className="nav-link">
             <CreditCardOutlined /> Budget
           </Nav.Link>
         </Nav>
@@ -91,7 +92,9 @@ const Header = () => {
           <Button variant="outline-secondary ml-2">
             <BellOutlined />
           </Button>
-          <span className="user-email">{userData.email}</span>
+          <span className="user-email">
+            {userData && userData.email ? userData.email : ""}
+          </span>
 
           <Button variant="outline-danger ml-2" onClick={handleLogout}>
             Logout
