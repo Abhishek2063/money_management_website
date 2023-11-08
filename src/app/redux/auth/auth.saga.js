@@ -1,25 +1,37 @@
 import { put, takeLatest } from "redux-saga/effects";
 import _ from "lodash";
 import {
+  ERROR_FACEBOOKLOGINCALLBACK,
   ERROR_GETLOGINUSERBYID,
   ERROR_GETUSERBYID,
+  ERROR_GOOGLELOGIN,
+  ERROR_GOOGLELOGINCALLBACK,
   ERROR_LOGIN,
   ERROR_LOGOUT,
   ERROR_REGISTRATION,
   ERROR_UPDATEUSERBYID,
+  FACEBOOKLOGINCALLBACK,
   GETLOGINUSERBYID,
   GETUSERBYID,
+  GOOGLELOGIN,
+  GOOGLELOGINCALLBACK,
   LOGIN,
   LOGOUT,
   REGISTRATION,
+  SUCCESS_FACEBOOKLOGINCALLBACK,
   SUCCESS_GETLOGINUSERBYID,
   SUCCESS_GETUSERBYID,
+  SUCCESS_GOOGLELOGIN,
+  SUCCESS_GOOGLELOGINCALLBACK,
   SUCCESS_LOGIN,
   SUCCESS_LOGOUT,
   SUCCESS_REGISTRATION,
   SUCCESS_UPDATEUSERBYID,
   UPDATEUSERBYID,
+  facebookLoginCallbackResponse,
   getLoginUserByIdResponse,
+  googleLoginCallbackResponse,
+  googleLoginResponse,
   loginResponse,
   logoutResponse,
   registrationResponse,
@@ -27,7 +39,10 @@ import {
   userGetByIdResponse,
 } from "./auth.action";
 import {
+  facebookLoginCallbackApi,
   getLoginUserByIdApi,
+  googleLoginApi,
+  googleLoginCallbackApi,
   loginApi,
   logoutApi,
   registrationApi,
@@ -111,4 +126,51 @@ function* logoutUserRequest(data) {
 }
 export function* logoutUserWatcher() {
   yield takeLatest(LOGOUT, logoutUserRequest);
+}
+
+// googleLogin
+function* googleLoginRequest(data) {
+  let getData = yield googleLoginApi(data);
+  if (getData.success && _.has(getData, "data.data")) {
+    yield put(googleLoginResponse(SUCCESS_GOOGLELOGIN, getData.data));
+  } else {
+    yield put(googleLoginResponse(ERROR_GOOGLELOGIN, getData.data));
+  }
+}
+export function* googleLoginWatcher() {
+  yield takeLatest(GOOGLELOGIN, googleLoginRequest);
+}
+
+// googleLoginCallback
+function* googleLoginCallbackRequest(data) {
+  let getData = yield googleLoginCallbackApi(data);
+  if (getData.success && _.has(getData, "data.data")) {
+    yield put(
+      googleLoginCallbackResponse(SUCCESS_GOOGLELOGINCALLBACK, getData.data)
+    );
+  } else {
+    yield put(
+      googleLoginCallbackResponse(ERROR_GOOGLELOGINCALLBACK, getData.data)
+    );
+  }
+}
+export function* googleLoginCallbackWatcher() {
+  yield takeLatest(GOOGLELOGINCALLBACK, googleLoginCallbackRequest);
+}
+
+// facebookLoginCallback
+function* facebookLoginCallbackRequest(data) {
+  let getData = yield facebookLoginCallbackApi(data);
+  if (getData.success && _.has(getData, "data.data")) {
+    yield put(
+      facebookLoginCallbackResponse(SUCCESS_FACEBOOKLOGINCALLBACK, getData.data)
+    );
+  } else {
+    yield put(
+      facebookLoginCallbackResponse(ERROR_FACEBOOKLOGINCALLBACK, getData.data)
+    );
+  }
+}
+export function* facebookLoginCallbackWatcher() {
+  yield takeLatest(FACEBOOKLOGINCALLBACK, facebookLoginCallbackRequest);
 }

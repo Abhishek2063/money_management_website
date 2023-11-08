@@ -1,5 +1,15 @@
 import { request } from "../request/axios.request";
-import { GETLOGINUSERBYID, GETUSERBYID, LOGIN, LOGOUT, REGISTRATION, UPDATEUSERBYID } from "../routing/route";
+import {
+  FACEBOOK_LOGIN_CALLBACK,
+  GETLOGINUSERBYID,
+  GETUSERBYID,
+  GOOGLE_LOGIN,
+  GOOGLE_LOGIN_CALLBACK,
+  LOGIN,
+  LOGOUT,
+  REGISTRATION,
+  UPDATEUSERBYID,
+} from "../routing/route";
 
 // registration api
 export async function registrationApi(data) {
@@ -10,7 +20,6 @@ export async function registrationApi(data) {
     data: userData,
   });
 }
-
 
 // login api
 export async function loginApi(data) {
@@ -55,9 +64,40 @@ export async function getLoginUserByIdApi(data) {
 // logout api
 export async function logoutApi(data) {
   let userData = data.data;
-  let url = `${LOGOUT}${userData.userId}`
+  let url = `${LOGOUT}${userData.userId}`;
   return request({
-    url:url ,
+    url: url,
     method: "post",
+  });
+}
+
+// googleLogin api
+export async function googleLoginApi(data) {
+  let userData = data.data;
+  return request({
+    url: GOOGLE_LOGIN,
+    method: "get",
+    data: userData,
+  });
+}
+// googleLoginCallback api
+export async function googleLoginCallbackApi(data) {
+  let userData = data.data;
+  return request({
+    url: GOOGLE_LOGIN_CALLBACK,
+    method: "get",
+    data: userData,
+    withCredentials: true
+  });
+}
+
+// facebookLoginCallback api
+export async function facebookLoginCallbackApi(data) {
+  let userData = data.data;
+  return request({
+    url: FACEBOOK_LOGIN_CALLBACK,
+    method: "get",
+    data: userData,
+    withCredentials: true
   });
 }

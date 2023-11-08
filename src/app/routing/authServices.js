@@ -1,10 +1,10 @@
-import history from "./history";
+import { Navigate } from "react-router-dom";
 import { Tokens, User } from "../storage";
 import { LOGIN } from "./routeConstants";
 
 export const onLogout = () => {
   Tokens.removeLocalData();
-  history.push(LOGIN);
+  <Navigate to={LOGIN} />
   return true;
 };
 

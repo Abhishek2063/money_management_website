@@ -1,11 +1,11 @@
 import axios from "axios";
 import { config as defaultConfig } from "../config/api.config";
-import history from "../../app/routing/history";
 import { Tokens } from "../../app/storage";
 import { setUserDetails, getUserDetails } from "../../app/storage/user";
 import { LOGIN } from "../../app/routing/routeConstants";
 import { getErrorMessages } from "../../app/common/errorMessageParser";
 import _ from "lodash";
+import { Navigate } from "react-router-dom";
 export const request = async (config) => {
   let requestData = {
     ...defaultConfig(),
@@ -29,7 +29,7 @@ function createResponseFromAxiosError(error) {
   if (error.response) {
     if (error.response.status === 401) {
       Tokens.removeLocalData();
-      history.push(LOGIN);
+      <Navigate to={LOGIN}/>
     }
     status = error.response.status;
     message = error.message;

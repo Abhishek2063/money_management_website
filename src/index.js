@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
 import AllRoutes from './app/routing/route'
-import history from './app/routing/history'
 import { Provider } from 'react-redux';
 import { store } from './app/store/store.factory';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -20,7 +19,7 @@ root.render(
   <React.StrictMode>
     <Suspense fallback={<Loader />}>
       <Provider store={store}>
-        <Router history={history}>
+        <Router>
           <AllRoutes />
         </Router>
       </Provider>
