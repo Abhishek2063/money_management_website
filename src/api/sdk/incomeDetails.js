@@ -18,13 +18,19 @@ export async function incomeStoreApi(data) {
 
 // incomeGetByUserId api
 export async function incomeGetByUserIdApi(data) {
-  let userData = data.data;
+  const userData = data.data;
+  const URL = `${INCOMEGETBYUSERID}/${userData.user_id}`;
+  const queryParams = {
+    page: userData.page,
+  };
+
   return request({
-    url: INCOMEGETBYUSERID,
+    url: URL,
     method: "get",
-    data: userData,
+    params: queryParams, // Use "params" for query parameters
   });
 }
+
 
 // incomeUpdateByUserIdIncomeId api
 export async function incomeUpdateByUserIdIncomeIdApi(data) {

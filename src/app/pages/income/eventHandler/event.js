@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { fieldValidator } from "../../../common/custom";
-import { incomeStore } from "../../../redux/incomeDetails/income.action";
+import { incomeGetByUserId, incomeStore } from "../../../redux/incomeDetails/income.action";
 export const handlePickUpDateChange = (
   val,
   state,
@@ -182,3 +182,9 @@ export const validateForm = (incomeData, incomeDataErr, setIncomeDataErr) => {
   setIncomeDataErr(errors);
   return Object.keys(errors).length === 0; // Form is valid if no errors are present
 };
+
+
+export const getPageData = (page,userdata, dispatch,setLoader) =>{
+  dispatch(incomeGetByUserId({user_id : userdata.userId, page :page}));
+  setLoader(true)
+}

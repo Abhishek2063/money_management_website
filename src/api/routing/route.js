@@ -39,7 +39,7 @@ export const CATEGORYDELETEBYUSERIDCATEGORYID = URL(
 
 /***** Income Routes*********/
 export const INCOMESTORE = URL("/income/create");
-export const INCOMEGETBYUSERID = URL("/income/list/:userId");
+export const INCOMEGETBYUSERID = URL("/income/list");
 export const INCOMEUPDATEBYUSERIDINCOMEID = URL(
   "/income/update/:userId/:incomeId"
 );
