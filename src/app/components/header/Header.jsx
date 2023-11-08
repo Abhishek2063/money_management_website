@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Navbar, Nav, Button } from "react-bootstrap";
+import { Navbar, Nav, Button, Container } from "react-bootstrap";
 import {
   BellOutlined,
   DashboardOutlined,
@@ -36,11 +36,7 @@ const Header = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (prevlogoutUser && prevlogoutUser.logoutUser !== logoutUser) {
-      if (
-        logoutUser &&
-        _.has(logoutUser, "data") &&
-        logoutUser.success === true
-      ) {
+      if (logoutUser && _.has(logoutUser, "data") && logoutUser.success === true) {
         message.success(logoutUser.message);
         Tokens.removeLocalData();
         clearUserDetails();
@@ -49,7 +45,6 @@ const Header = () => {
       }
       if (logoutUser && logoutUser.success === false) {
         setLoader(false);
-
         if (Array.isArray(logoutUser.error)) {
           message.error("Invalid Data");
         } else if (typeof logoutUser.error === "string") {
@@ -62,44 +57,46 @@ const Header = () => {
   }, [logoutUser, prevlogoutUser]);
 
   return (
-    <div className="money-management mb-10">
+    <div className="money-management">
       <Navbar
-        className="money-management-navbar d-flex justify-content-center"
+        className="money-management-navbar"
         expand="lg"
         fixed="top"
+        style={{ background: "linear-gradient(to right, #4CAF50, #2196F3)" }}
       >
-        <Navbar.Brand as={NavLink} to="/home">
-          <img src={LogoImage} alt="Logo" width="40" height="40" />
-        </Navbar.Brand>
-        <Nav className="mr-auto">
-          <Nav.Link as={NavLink} to="/home" className="nav-link">
-            <HomeOutlined /> Home
-          </Nav.Link>
-          <Nav.Link as={NavLink} to="/dashboard" className="nav-link">
-            <DashboardOutlined /> Dashboard
-          </Nav.Link>
-          <Nav.Link as={NavLink} to="/expanse" className="nav-link">
-            <RadarChartOutlined /> Expense
-          </Nav.Link>
-          <Nav.Link as={NavLink} to="/income" className="nav-link">
-            <BankOutlined /> Income
-          </Nav.Link>
-          <Nav.Link as={NavLink} to="/budget" className="nav-link">
-            <CreditCardOutlined /> Budget
-          </Nav.Link>
-        </Nav>
-        <Nav>
-          <Button variant="outline-secondary ml-2">
-            <BellOutlined />
-          </Button>
-          <span className="user-email">
-            {userData && userData.email ? userData.email : ""}
-          </span>
-
-          <Button variant="outline-danger ml-2" onClick={handleLogout}>
-            Logout
-          </Button>
-        </Nav>
+        <Container>
+          <Navbar.Brand as={NavLink} to="/home">
+            <img src={LogoImage} alt="Logo" width="40" height="40" />
+          </Navbar.Brand>
+          <Nav className="mr-auto">
+            <Nav.Link as={NavLink} to="/home" className="nav-link">
+              <HomeOutlined /> Home
+            </Nav.Link>
+            <Nav.Link as={NavLink} to="/dashboard" className="nav-link">
+              <DashboardOutlined /> Dashboard
+            </Nav.Link>
+            <Nav.Link as={NavLink} to="/expanse" className="nav-link">
+              <RadarChartOutlined /> Expense
+            </Nav.Link>
+            <Nav.Link as={NavLink} to="/income" className="nav-link">
+              <BankOutlined /> Income
+            </Nav.Link>
+            <Nav.Link as={NavLink} to="/budget" className="nav-link">
+              <CreditCardOutlined /> Budget
+            </Nav.Link>
+          </Nav>
+          <Nav>
+            <Button variant="outline-secondary notification-icon">
+              <BellOutlined />
+            </Button>
+            <span className="user-email">
+              {userData && userData.email ? userData.email : ""}
+            </span>
+            <Button variant="outline-danger" onClick={handleLogout}>
+              Logout
+            </Button>
+          </Nav>
+        </Container>
       </Navbar>
       {loader && <Loader />}
     </div>

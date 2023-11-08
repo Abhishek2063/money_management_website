@@ -35,7 +35,7 @@ const Empty = () => {
   if (~matches.indexOf(location.pathname)) {
     return <div></div>;
   } else {
-    return userLoggedIn ? <Navigate to={DASHBOARD} /> : <Navigate to={LOGIN} />;
+    return userLoggedIn ? <Navigate to={Home} /> : <Navigate to={LOGIN} />;
   }
 };
 export default Empty;

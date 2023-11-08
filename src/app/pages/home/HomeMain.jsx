@@ -1,6 +1,4 @@
 import React from "react";
-import Footer from "../../components/footer/footer";
-import Header from "../../components/header/Header";
 import "../../assets/css/HomePage.css";
 import MainCoverImage from "../../assets/images/stocks-charts.png";
 import { NavigationButton } from "../registration";
@@ -9,7 +7,6 @@ import { DASHBOARD } from "../../routing/routeConstants";
 const HomeMain = () => {
   return (
     <>
-      <Header />
       <div className="home-container">
         {/* First Section */}
         <section className="first-section">
@@ -37,7 +34,6 @@ const HomeMain = () => {
           </div>
         </section>
       </div>
-      <Footer />
     </>
   );
 };

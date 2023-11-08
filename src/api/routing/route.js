@@ -23,12 +23,12 @@ export const FACEBOOK_LOGIN_CALLBACK = URL("/auth/facebook/callback/success");
 
 /***** Category Routes*********/
 export const CATEGORYCREATE = URL("/categories/create");
-export const CATEGORYGETBYUSERID = URL("/categories/list/:userId");
+export const CATEGORYGETBYUSERID = URL("/categories/list");
 export const CATEGORYGETBYUSERIDCATEGORYID = URL(
   "/categories/get/:userId/:categoryId"
 );
 export const CATEGORYGETBYUSERIDCATEGORYTYPE = URL(
-  "/categories/list/:userId/:category_type"
+  "/categories/list"
 );
 export const CATEGORYUPDATEBYUSERIDCATEGORYID = URL(
   "/categories/update/:userId/:categoryId"
@@ -39,12 +39,12 @@ export const CATEGORYDELETEBYUSERIDCATEGORYID = URL(
 
 /***** Income Routes*********/
 export const INCOMESTORE = URL("/income/create");
-export const INCOMEGETBYUSERID = URL("/income/list/:userId");
+export const INCOMEGETBYUSERID = URL("/income/list");
 export const INCOMEUPDATEBYUSERIDINCOMEID = URL(
-  "/income/update/:userId/:incomeId"
+  "/income/update"
 );
 export const INCOMEDELETEBYUSERIDINCOMEID = URL(
-  "/income/delete/:userId/:incomeId"
+  "/income/delete"
 );
 
 /***** Expanse Routes*********/

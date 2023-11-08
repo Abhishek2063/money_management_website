@@ -21,8 +21,9 @@ export async function categoryCreateApi(data) {
 // categoryGetByUserId api
 export async function categoryGetByUserIdApi(data) {
   let userData = data.data;
+  const URL = `${CATEGORYGETBYUSERID}/${userData}`
   return request({
-    url: CATEGORYGETBYUSERID,
+    url: URL,
     method: "get",
     data: userData,
   });
@@ -41,8 +42,9 @@ export async function categoryGetByUserIdCategoryIdApi(data) {
 // categoryGetByUserIdCategoryType api
 export async function categoryGetByUserIdCategoryTypeApi(data) {
   let userData = data.data;
+  const URL = `${CATEGORYGETBYUSERIDCATEGORYTYPE}/${userData.user_id}/${userData.category_type}`
   return request({
-    url: CATEGORYGETBYUSERIDCATEGORYTYPE,
+    url: URL,
     method: "get",
     data: userData,
   });
