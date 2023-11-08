@@ -23,12 +23,12 @@ export const FACEBOOK_LOGIN_CALLBACK = URL("/auth/facebook/callback/success");
 
 /***** Category Routes*********/
 export const CATEGORYCREATE = URL("/categories/create");
-export const CATEGORYGETBYUSERID = URL("/categories/list/:userId");
+export const CATEGORYGETBYUSERID = URL("/categories/list");
 export const CATEGORYGETBYUSERIDCATEGORYID = URL(
   "/categories/get/:userId/:categoryId"
 );
 export const CATEGORYGETBYUSERIDCATEGORYTYPE = URL(
-  "/categories/list/:userId/:category_type"
+  "/categories/list"
 );
 export const CATEGORYUPDATEBYUSERIDCATEGORYID = URL(
   "/categories/update/:userId/:categoryId"

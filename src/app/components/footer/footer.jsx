@@ -10,10 +10,13 @@ const Footer = (props) => {
     padding: "10px",
   };
 
+
   return (
-    <footer style={footerStyle}>
-      &copy; {new Date().getFullYear()} Money Management | All Rights Reserved.
-    </footer>
+    <div>
+      <footer style={footerStyle}>
+        &copy; {new Date().getFullYear()} Money Management | All Rights Reserved.
+      </footer>
+    </div>
   );
 };
 

@@ -16,15 +16,16 @@
   right: 16px;
 }
 /* Header.css */
+/* Header.css */
 .money-management {
   display: flex;
-  justify-content: center; /* Center the content horizontally */
-  align-items: center;
-  margin-bottom:80px ;
+  justify-content: center;
 }
+
 .money-management-navbar {
-  background: linear-gradient(to right, #4CAF50, #2196F3); /* Linear color related to money management */
+  background: linear-gradient(to right, #4caf50, #2196f3);
 }
+
 .nav-link {
   text-transform: uppercase;
   font-weight: bold;
@@ -32,29 +33,46 @@
   transition: background-color 0.2s;
   border-radius: 0.25rem;
   color: white;
+  display: flex;
+  align-items: center;
 }
 
 .nav-link:hover {
-  background: linear-gradient(to right, #FFD700, #FFA500); /* Colorful hover effect */
+  background: linear-gradient(to right, #ffd700, #ffa500);
   color: white;
 }
 
-.email-button {
-  font-weight: bold;
-  background-color: #007bff;
-  color: #fff;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 0.25rem;
+/* Add space between the links */
+.nav-link + .nav-link {
+  margin-left: 10px;
 }
 
-.email-button:hover {
-  background-color: #0056b3;
-}
 .user-email {
   font-weight: bold;
   color: white;
-  margin-right: 10px; /* Add some spacing between the email and buttons */
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
 }
 
+.notification-icon {
+  display: flex;
+  align-items: center;
+}
+/* Style the Logout button */
+.navbar .btn-outline-danger {
+  font-weight: bold;
+  border: none;
+  border-radius: 0.25rem;
+  color: #dc3545;
+}
 
+.navbar .btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+.body-content {
+  padding-bottom: 80px;
+  margin-top: 78px;
+}

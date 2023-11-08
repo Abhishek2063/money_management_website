@@ -2,33 +2,28 @@ import React from "react";
 import { isLoggedIn } from "./authServices";
 import Header from "../components/header/Header";
 import Footer from "../components/footer/footer";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import { PublicRoutes } from "./routesDistribution/publicRoute";
 import { PrivateRoute } from "./routesDistribution/privateRoute";
-import { DASHBOARD, LOGIN } from "./routeConstants";
-import DashboardMain from "../pages/dashboard/DashboardMain";
+import { Home, LOGIN } from "./routeConstants";
 import LoginMain from "../pages/auth/LoginMain";
 import Empty from "../pages/empty/empty";
+import HomeMain from "../pages/home/HomeMain";
 
-export const PrivateRouteHandler = ({ children }) => {
+export const PrivateRouteHandler = () => {
   const userLoggedIn = isLoggedIn();
-  if (!userLoggedIn) {
-    return <Navigate to={LOGIN} />;
-  }
-  return <>{children}</>;
+
+  return userLoggedIn ? <Outlet /> : <Navigate to={LOGIN} />;
 };
 
-export const PublicRouteHandler = ({ children }) => {
+export const PublicRouteHandler = () => {
   const userLoggedIn = isLoggedIn();
-  if (userLoggedIn) {
-    return <Navigate to={DASHBOARD} />;
-  }
-  return <>{children}</>;
+  return !userLoggedIn ? <Outlet /> : <Navigate to={Home} />;
 };
 
-export const LoginRouteHandler = ({ children }) => {
+export const LoginRouteHandler = () => {
   const userLoggedIn = isLoggedIn();
-  return userLoggedIn ? <Navigate to={DASHBOARD} /> : <Navigate to={LOGIN} />;
+  return userLoggedIn ? <Navigate to={Home} /> : <Navigate to={LOGIN} />;
 };
 
 const AllRoutes = () => {
@@ -40,26 +35,25 @@ const AllRoutes = () => {
       {userLoggedIn ? (
         <>
           <Header />
-          <div className="container mt-4">
+          <div className="body-content">
             <Routes>
-              <Route
-                key="/"
-                path="/"
-                element={
-                  <LoginRouteHandler>
-                    {userLoggedIn ? <DashboardMain /> : <LoginMain />}
-                  </LoginRouteHandler>
-                }
-              />
-              {PrivateRoute.map((route, index) => (
+              <Route element={<LoginRouteHandler />}>
                 <Route
-                  key={index}
-                  path={route.path}
-                  element={
-                    <PrivateRouteHandler>{route.component}</PrivateRouteHandler>
-                  }
+                  key="/"
+                  path="/"
+                  element={userLoggedIn ? <HomeMain /> : <LoginMain />}
                 />
-              ))}
+              </Route>
+              <Route element={<PrivateRouteHandler />}>
+                {PrivateRoute.map((route, index) => (
+                  <Route
+                    key={index}
+                    path={route.path}
+                    element={route.component}
+                  />
+                ))}
+              </Route>
+
               <Route path="*" element={<Empty />} />
             </Routes>
           </div>
@@ -68,24 +62,18 @@ const AllRoutes = () => {
         </>
       ) : (
         <Routes>
-          <Route
-            key="/"
-            path="/"
-            element={
-              <LoginRouteHandler>
-                {userLoggedIn ? <DashboardMain /> : <LoginMain />}
-              </LoginRouteHandler>
-            }
-          />
-          {PublicRoutes.map((route, index) => (
+          <Route element={<LoginRouteHandler />}>
             <Route
-              key={index}
-              path={route.path}
-              element={
-                <PublicRouteHandler>{route.component}</PublicRouteHandler>
-              }
+              key="/"
+              path="/"
+              element={userLoggedIn ? <HomeMain /> : <LoginMain />}
             />
-          ))}
+          </Route>
+          <Route element={<PublicRouteHandler />}>
+            {PublicRoutes.map((route, index) => (
+              <Route key={index} path={route.path} element={route.component} />
+            ))}
+          </Route>
           <Route path="*" element={<Empty />} />
         </Routes>
       )}
