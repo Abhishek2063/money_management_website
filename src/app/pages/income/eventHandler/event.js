@@ -1,6 +1,13 @@
 import dayjs from "dayjs";
 import { fieldValidator } from "../../../common/custom";
-import { incomeGetByUserId, incomeStore } from "../../../redux/incomeDetails/income.action";
+import {
+  incomeDeleteByUserIdIncomeId,
+  incomeGetByUserId,
+  incomeStore,
+  incomeUpdateByUserIdIncomeId,
+} from "../../../redux/incomeDetails/income.action";
+import Swal from "sweetalert2";
+
 export const handlePickUpDateChange = (
   val,
   state,
@@ -139,7 +146,7 @@ export const validateForm = (incomeData, incomeDataErr, setIncomeDataErr) => {
       if (key === "amount") {
         type = "onlynumber";
         maxLength = null;
-        minLength = 1;
+        minLength = null;
       }
       if (key === "other_category" && incomeData.other_category_show) {
         type = "alphabetics";
@@ -183,8 +190,90 @@ export const validateForm = (incomeData, incomeDataErr, setIncomeDataErr) => {
   return Object.keys(errors).length === 0; // Form is valid if no errors are present
 };
 
+export const getPageData = (page, userdata, dispatch, setLoader) => {
+  dispatch(incomeGetByUserId({ user_id: userdata.userId, page: page }));
+  setLoader(true);
+};
 
-export const getPageData = (page,userdata, dispatch,setLoader) =>{
-  dispatch(incomeGetByUserId({user_id : userdata.userId, page :page}));
-  setLoader(true)
-}
+export const handleEditIncomeDetails = (
+  incomeData,
+  setIncomeData,
+  setIsModalOpen,
+  data,
+  setEditIncomeDetailsId
+) => {
+  setIncomeData({
+    ...incomeData,
+    incomeDate: data.date,
+    description: data.description,
+    amount: data.amount,
+    category_name: data.category_id._id,
+    other_category_show: false,
+    other_category: "",
+    other_category_description: "",
+  });
+  setIsModalOpen(true);
+  setEditIncomeDetailsId(data._id);
+};
+
+export const handleEditIncomeButton = (
+  e,
+  setLoader,
+  incomeData,
+  setIncomeData,
+  incomeDataErr,
+  setIncomeDataErr,
+  dispatch,
+  userData,
+  editIncomeDetailsId
+) => {
+  e.preventDefault();
+  const isFormValid = validateForm(incomeData, incomeDataErr, setIncomeDataErr);
+  if (isFormValid) {
+    // Proceed with registration logic
+    setLoader(true);
+    const data = {
+      user_id: userData.userId,
+      date: new Date(incomeData.incomeDate),
+      description: incomeData.description,
+      amount: incomeData.amount,
+      incomeId: editIncomeDetailsId,
+    };
+    if (incomeData.other_category_show) {
+      data.other_category = {
+        category_name: incomeData.other_category,
+        category_type: "income",
+        category_description: incomeData.other_category_description,
+      };
+    } else {
+      data.category_id = incomeData.category_name;
+    }
+    dispatch(incomeUpdateByUserIdIncomeId(data));
+  }
+};
+
+export const handleDeleteIncomeDetails = (
+  data,
+  userData,
+  setLoader,
+  dispatch
+) => {
+  Swal.fire({
+    title: "Permission Before Delete",
+    text: " Are you sure? You will not be able to recover the deleted income details!",
+    confirmButtonText: "OK",
+    allowOutsideClick: false,
+    allowEscapeKey: false,
+    showCloseButton: true,
+    showCancelButton: true,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const deleteUserData = {
+        user_id: userData.userId,
+        incomeId: data._id,
+      };
+      setLoader(true);
+      dispatch(incomeDeleteByUserIdIncomeId(deleteUserData));
+    }
+  });
+};

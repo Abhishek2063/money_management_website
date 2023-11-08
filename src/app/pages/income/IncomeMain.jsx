@@ -34,6 +34,8 @@ const IncomeMain = () => {
   const [totalRecords, setTotalRecords] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
   const [limit, setlimit] = useState(10);
+  const [editModalBox, setEditModalBox] = useState(false);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
@@ -42,7 +44,7 @@ const IncomeMain = () => {
         category_type: "income",
       })
     );
-    dispatch(incomeGetByUserId({ user_id: userData.userId, page: 1 }));
+    dispatch(incomeGetByUserId({ user_id: userData.userId, page: page }));
     setLoader(true);
     // eslint-disable-next-line
   }, []);
@@ -108,7 +110,8 @@ const IncomeMain = () => {
           other_category: "",
         });
         message.success(incomeStoreData.message);
-        setLoader(false);
+        dispatch(incomeGetByUserId({ user_id: userData.userId, page: page }));
+        setLoader(true);
       }
       if (incomeStoreData && incomeStoreData.success === false) {
         setLoader(false);
@@ -161,6 +164,90 @@ const IncomeMain = () => {
     } // eslint-disable-next-line
   }, [incomeGetByUserIdData, previncomeGetByUserIdData]);
 
+  const incomeUpdateByUserIdIncomeIdData = useSelector(
+    (state) => state.income.incomeUpdateByUserIdIncomeIdData
+  );
+  const previncomeUpdateByUserIdIncomeIdData = usePrevious({
+    incomeUpdateByUserIdIncomeIdData,
+  });
+  useEffect(() => {
+    if (
+      previncomeUpdateByUserIdIncomeIdData &&
+      previncomeUpdateByUserIdIncomeIdData.incomeUpdateByUserIdIncomeIdData !==
+        incomeUpdateByUserIdIncomeIdData
+    ) {
+      if (
+        incomeUpdateByUserIdIncomeIdData &&
+        incomeUpdateByUserIdIncomeIdData.success === true
+      ) {
+        setEditModalBox(false);
+        setIncomeData({
+          ...incomeData,
+          incomeDate: "",
+          description: "",
+          amount: "",
+          category_name: "",
+          other_category_show: false,
+          other_category: "",
+        });
+        message.success(incomeUpdateByUserIdIncomeIdData.message);
+        dispatch(incomeGetByUserId({ user_id: userData.userId, page: page }));
+        setLoader(true);
+      }
+      if (
+        incomeUpdateByUserIdIncomeIdData &&
+        incomeUpdateByUserIdIncomeIdData.success === false
+      ) {
+        setLoader(false);
+
+        if (Array.isArray(incomeUpdateByUserIdIncomeIdData.error)) {
+          message.error("Invalid Data");
+        } else if (typeof incomeUpdateByUserIdIncomeIdData.error === "string") {
+          message.error(incomeUpdateByUserIdIncomeIdData.error);
+        } else {
+          message.error("An error occurred."); // Handle other error types as needed
+        }
+      }
+    } // eslint-disable-next-line
+  }, [incomeUpdateByUserIdIncomeIdData, previncomeUpdateByUserIdIncomeIdData]);
+
+  const incomeDeleteByUserIdIncomeIdData = useSelector(
+    (state) => state.income.incomeDeleteByUserIdIncomeIdData
+  );
+  const previncomeDeleteByUserIdIncomeIdData = usePrevious({
+    incomeDeleteByUserIdIncomeIdData,
+  });
+  useEffect(() => {
+    if (
+      previncomeDeleteByUserIdIncomeIdData &&
+      previncomeDeleteByUserIdIncomeIdData.incomeDeleteByUserIdIncomeIdData !==
+        incomeDeleteByUserIdIncomeIdData
+    ) {
+      if (
+        incomeDeleteByUserIdIncomeIdData &&
+        incomeDeleteByUserIdIncomeIdData.success === true
+      ) {
+        message.success(incomeDeleteByUserIdIncomeIdData.message);
+        dispatch(incomeGetByUserId({ user_id: userData.userId, page: page }));
+        setLoader(true);
+      }
+      if (
+        incomeDeleteByUserIdIncomeIdData &&
+        incomeDeleteByUserIdIncomeIdData.success === false
+      ) {
+        setLoader(false);
+
+        if (Array.isArray(incomeDeleteByUserIdIncomeIdData.error)) {
+          message.error("Invalid Data");
+        } else if (typeof incomeDeleteByUserIdIncomeIdData.error === "string") {
+          message.error(incomeDeleteByUserIdIncomeIdData.error);
+        } else {
+          message.error("An error occurred."); // Handle other error types as needed
+        }
+      }
+    } // eslint-disable-next-line
+  }, [incomeDeleteByUserIdIncomeIdData, previncomeDeleteByUserIdIncomeIdData]);
+
   return (
     <>
       <div className="income-main">
@@ -176,6 +263,25 @@ const IncomeMain = () => {
             onClick={() => setIsModalOpen(true)}
           />
         </div>
+      </div>
+      <div className="mt-5">
+        <IncomeTable
+          incomeDataList={incomeDataList}
+          page={page}
+          totalRecords={totalRecords}
+          limit={limit}
+          userData={userData}
+          dispatch={dispatch}
+          setLoader={setLoader}
+          totalPage={totalPage}
+          setEditModalBox={setEditModalBox}
+          editModalBox={editModalBox}
+          incomeData={incomeData}
+          setIncomeData={setIncomeData}
+          incomeDataErr={incomeDataErr}
+          setIncomeDataErr={setIncomeDataErr}
+          categoryList={categoryList}
+        />
       </div>
       <IncomeModal
         setIsModalOpen={setIsModalOpen}
@@ -199,16 +305,7 @@ const IncomeMain = () => {
         setErrorState={setIncomeDataErr}
         categoryList={categoryList}
       />
-      <IncomeTable
-        incomeDataList={incomeDataList}
-        page={page}
-        totalRecords={totalRecords}
-        limit={limit}
-        userdata={userData}
-        dispatch={dispatch}
-        setLoader={setLoader}
-        totalPage={totalPage}
-      />
+
       {loader && <Loader />}
     </>
   );

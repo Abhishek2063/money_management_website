@@ -31,12 +31,12 @@ export async function incomeGetByUserIdApi(data) {
   });
 }
 
-
 // incomeUpdateByUserIdIncomeId api
 export async function incomeUpdateByUserIdIncomeIdApi(data) {
   let userData = data.data;
+  const URL = `${INCOMEUPDATEBYUSERIDINCOMEID}/${userData.user_id}/${userData.incomeId}`;
   return request({
-    url: INCOMEUPDATEBYUSERIDINCOMEID,
+    url: URL,
     method: "put",
     data: userData,
   });
@@ -45,8 +45,9 @@ export async function incomeUpdateByUserIdIncomeIdApi(data) {
 // incomeDeleteByUserIdIncomeId api
 export async function incomeDeleteByUserIdIncomeIdApi(data) {
   let userData = data.data;
+  const URL = `${INCOMEDELETEBYUSERIDINCOMEID}/${userData.user_id}/${userData.incomeId}`;
   return request({
-    url: INCOMEDELETEBYUSERIDINCOMEID,
+    url: URL,
     method: "delete",
     data: userData,
   });

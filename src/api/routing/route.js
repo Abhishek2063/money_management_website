@@ -41,10 +41,10 @@ export const CATEGORYDELETEBYUSERIDCATEGORYID = URL(
 export const INCOMESTORE = URL("/income/create");
 export const INCOMEGETBYUSERID = URL("/income/list");
 export const INCOMEUPDATEBYUSERIDINCOMEID = URL(
-  "/income/update/:userId/:incomeId"
+  "/income/update"
 );
 export const INCOMEDELETEBYUSERIDINCOMEID = URL(
-  "/income/delete/:userId/:incomeId"
+  "/income/delete"
 );
 
 /***** Expanse Routes*********/
