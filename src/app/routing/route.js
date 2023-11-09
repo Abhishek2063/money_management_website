@@ -1,82 +1,51 @@
 import React from "react";
-import { isLoggedIn } from "./authServices";
-import Header from "../components/header/Header";
-import Footer from "../components/footer/footer";
-import { Navigate, Outlet, Route, Routes } from "react-router-dom";
-import { PublicRoutes } from "./routesDistribution/publicRoute";
-import { PrivateRoute } from "./routesDistribution/privateRoute";
-import { Home, LOGIN } from "./routeConstants";
+import { Route, Routes } from "react-router-dom";
 import LoginMain from "../pages/auth/LoginMain";
-import Empty from "../pages/empty/empty";
 import HomeMain from "../pages/home/HomeMain";
-
-export const PrivateRouteHandler = () => {
-  const userLoggedIn = isLoggedIn();
-
-  return userLoggedIn ? <Outlet /> : <Navigate to={LOGIN} />;
-};
-
-export const PublicRouteHandler = () => {
-  const userLoggedIn = isLoggedIn();
-  return !userLoggedIn ? <Outlet /> : <Navigate to={Home} />;
-};
-
-export const LoginRouteHandler = () => {
-  const userLoggedIn = isLoggedIn();
-  return userLoggedIn ? <Navigate to={Home} /> : <Navigate to={LOGIN} />;
-};
+import { PublicRoutes } from "./routesDistribution/publicRoute";
+import Empty from "../pages/empty/empty";
+import PrivateRouteHandler, { LoginRouteHandler, PublicRouteHandler, Template } from "./Layout";
+import { PrivateRoute } from "./routesDistribution/privateRoute";
 
 const AllRoutes = () => {
-  // Check if the user is logged in
-  const userLoggedIn = isLoggedIn();
-
   return (
     <>
-      {userLoggedIn ? (
-        <>
-          <Header />
-          <div className="body-content">
-            <Routes>
-              <Route element={<LoginRouteHandler />}>
-                <Route
-                  key="/"
-                  path="/"
-                  element={userLoggedIn ? <HomeMain /> : <LoginMain />}
-                />
-              </Route>
-              <Route element={<PrivateRouteHandler />}>
-                {PrivateRoute.map((route, index) => (
-                  <Route
-                    key={index}
-                    path={route.path}
-                    element={route.component}
-                  />
-                ))}
-              </Route>
+      <Routes>
+         {/* Login routes  */}
+         <Route element={<LoginRouteHandler />}>
+          <Route key="/" path="/" element={<LoginMain />} />
+        </Route>
 
-              <Route path="*" element={<Empty />} />
-            </Routes>
-          </div>
+        {/* Public routes  */}
+        <Route element={<PublicRouteHandler />}>
+          <Route key="/" path="/" element={<LoginMain />} />
+          {PublicRoutes.map((route, index) => (
+            <Route key={index} path={route.path} element={route.component} />
+          ))}
+        </Route>
 
-          <Footer />
-        </>
-      ) : (
-        <Routes>
-          <Route element={<LoginRouteHandler />}>
+        {/* Private routes */}
+        <Route element={<PrivateRouteHandler />}>
+          <Route
+            key="/"
+            path="/"
+            element={
+              <Template>
+                <HomeMain />
+              </Template>
+            }
+          />
+          {PrivateRoute.map((route, index) => (
             <Route
-              key="/"
-              path="/"
-              element={userLoggedIn ? <HomeMain /> : <LoginMain />}
+              key={index}
+              path={route.path}
+              element={<Template>{route.component}</Template>}
             />
-          </Route>
-          <Route element={<PublicRouteHandler />}>
-            {PublicRoutes.map((route, index) => (
-              <Route key={index} path={route.path} element={route.component} />
-            ))}
-          </Route>
-          <Route path="*" element={<Empty />} />
-        </Routes>
-      )}
+          ))}
+        </Route>
+
+        <Route path="*" element={<Empty />} />
+      </Routes>
     </>
   );
 };

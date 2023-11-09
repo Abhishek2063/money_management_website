@@ -12,7 +12,7 @@ import "../../assets/css/login.css";
 import logoImage from "../../assets/images/favicon-3.png";
 import { Tokens, User } from "../../storage";
 import { useNavigate } from "react-router-dom";
-import { DASHBOARD } from "../../routing/routeConstants";
+import { DASHBOARD, Home } from "../../routing/routeConstants";
 const LoginMain = () => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -31,7 +31,7 @@ const LoginMain = () => {
         message.success(loginData.message);
         Tokens.setToken(loginData.data.token);
         User.setUserDetails(loginData.data);
-        navigate(DASHBOARD,{replace : true});
+        navigate(Home,{replace : true});
         setLoader(false);
       }
       if (loginData && loginData.success === false) {
@@ -66,7 +66,7 @@ const LoginMain = () => {
         message.success(googleLoginCallbackData.message);
         Tokens.setToken(googleLoginCallbackData.data.token);
         User.setUserDetails(googleLoginCallbackData.data);
-        navigate(DASHBOARD);
+        navigate(Home);
         setLoader(false);
       }
       if (
@@ -106,7 +106,7 @@ const LoginMain = () => {
         message.success(facebookLoginCallbackData.message);
         Tokens.setToken(facebookLoginCallbackData.data.token);
         User.setUserDetails(facebookLoginCallbackData.data);
-        navigate(DASHBOARD);
+        navigate(Home);
         setLoader(false);
       }
       if (
