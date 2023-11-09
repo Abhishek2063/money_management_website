@@ -9,7 +9,10 @@ import {
 } from "../index";
 import { REGISTER } from "../../../routing/routeConstants";
 import { API_URL } from "../../../common/config";
-import { facebookLoginCallback, googleLoginCallback } from "../../../redux/auth/auth.action";
+import {
+  facebookLoginCallback,
+  googleLoginCallback,
+} from "../../../redux/auth/auth.action";
 const FormFields = (props) => {
   let timer = null;
   const handleGoogleLogin = (e) => {
@@ -46,7 +49,7 @@ const FormFields = (props) => {
         }
       }, 500);
     }
-  }
+  };
 
   return (
     <>
@@ -112,19 +115,13 @@ const FormFields = (props) => {
         error={props.formDataError.passwordErr}
         isRequired={true}
       />
-      <Button
-        type="button"
-        text="Login with Google"
-        className="login-with-google-btn"
-        onClick={handleGoogleLogin}
-      />
 
-      <Button
+      {/* <Button
         type="button"
         text=" Login with Facebook"
         className="loginBtn loginBtn--facebook"
         onClick={handleFaceBookLogin}
-      />
+      /> */}
 
       <Button
         type="submit"
@@ -139,6 +136,13 @@ const FormFields = (props) => {
             props.dispatch
           )
         }
+      />
+
+      <Button
+        type="button"
+        text="Login with Google"
+        className="login-with-google-btn mt-3"
+        onClick={handleGoogleLogin}
       />
 
       <NavigationButton
