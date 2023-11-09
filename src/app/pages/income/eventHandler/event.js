@@ -1,13 +1,12 @@
-import dayjs from "dayjs";
-import { fieldValidator } from "../../../common/custom";
 import {
+  dayjs,
+  fieldValidator,
   incomeDeleteByUserIdIncomeId,
   incomeGetByUserId,
   incomeStore,
   incomeUpdateByUserIdIncomeId,
-} from "../../../redux/incomeDetails/income.action";
-import Swal from "sweetalert2";
-
+  Swal,
+} from "../index";
 export const handlePickUpDateChange = (
   val,
   state,

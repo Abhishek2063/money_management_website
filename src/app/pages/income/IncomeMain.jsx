@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
-import Button from "../../components/ButtonComponents/Button";
-import { PlusOutlined } from "@ant-design/icons";
 import "../../assets/css/Income.css";
 import IncomeModal from "./modal/IncomeModal";
-import { useDispatch, useSelector } from "react-redux";
-import { categoryGetByUserIdCategoryType } from "../../redux/category/category.action";
-import { getUserDetails } from "../../storage/user";
-import { usePrevious } from "../../common/custom";
-import _ from "lodash";
-import { message } from "antd";
-import Loader from "../../common/loader";
 import { handleSubmitButton } from "./eventHandler/event";
-import { incomeGetByUserId } from "../../redux/incomeDetails/income.action";
 import IncomeTable from "./table/IncomeTable";
+import {
+  Button,
+  PlusOutlined,
+  useDispatch,
+  useSelector,
+  categoryGetByUserIdCategoryType,
+  getUserDetails,
+  usePrevious,
+  _,
+  message,
+  Loader,
+  incomeGetByUserId,
+} from "./index";
 const IncomeMain = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [incomeData, setIncomeData] = useState({

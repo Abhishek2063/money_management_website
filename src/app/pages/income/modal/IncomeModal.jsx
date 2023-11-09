@@ -1,14 +1,10 @@
 import React from "react";
-import { Modal } from "antd";
-import DateInput from "../../../components/FormComponents/DateInput";
 import {
   handleInputChange,
   handlePickUpDateChange,
   handleSelectChange,
 } from "../eventHandler/event";
-import dayjs from "dayjs";
-import TextInput from "../../../components/FormComponents/TextInput";
-import SelectInput from "../../../components/FormComponents/SelectInput";
+import { Modal, DateInput, dayjs, TextInput, SelectInput } from "../index";
 const IncomeModal = (props) => {
   const handleCancel = () => {
     props.setIsModalOpen(false);
@@ -40,7 +36,13 @@ const IncomeModal = (props) => {
             label="Income Date"
             value={props.state.incomeDate ? dayjs(props.state.incomeDate) : ""}
             onChange={(val) =>
-              handlePickUpDateChange(val, props.state, props.setState,props.setErrorState,props.errorState)
+              handlePickUpDateChange(
+                val,
+                props.state,
+                props.setState,
+                props.setErrorState,
+                props.errorState
+              )
             }
             error={props.errorState.incomeDateErr}
             isRequired={true}

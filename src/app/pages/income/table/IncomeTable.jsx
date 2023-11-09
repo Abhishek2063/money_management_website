@@ -1,15 +1,22 @@
-import React,{useState} from "react";
-import Table from "react-bootstrap/Table";
-import _ from "lodash";
-import dayjs from "dayjs";
-import { PaginationFooter } from "../../../common/pagination";
-import { getPageData, handleDeleteIncomeDetails, handleEditIncomeButton, handleEditIncomeDetails } from "../eventHandler/event";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import Button from "../../../components/ButtonComponents/Button";
+import React, { useState } from "react";
+import {
+  getPageData,
+  handleDeleteIncomeDetails,
+  handleEditIncomeButton,
+  handleEditIncomeDetails,
+} from "../eventHandler/event";
 import IncomeModal from "../modal/IncomeModal";
-
+import {
+  Table,
+  _,
+  dayjs,
+  PaginationFooter,
+  EditOutlined,
+  DeleteOutlined,
+  Button,
+} from "../index";
 const IncomeTable = (props) => {
-  const [editIncomeDetailsId,setEditIncomeDetailsId] = useState("")
+  const [editIncomeDetailsId, setEditIncomeDetailsId] = useState("");
   return (
     <>
       <Table striped bordered hover>
