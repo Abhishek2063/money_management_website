@@ -49,10 +49,10 @@ export const INCOMEDELETEBYUSERIDINCOMEID = URL(
 
 /***** Expanse Routes*********/
 export const EXPANSESTORE = URL("/expanse/create");
-export const EXPANSEGETBYUSERID = URL("/expanse/list/:userId");
+export const EXPANSEGETBYUSERID = URL("/expanse/list");
 export const EXPANSEUPDATEBYUSERIDEXPANSEID = URL(
-  "/expanse/update/:userId/:expenseId"
+  "/expanse/update"
 );
 export const EXPANSEDELETEBYUSERIDINCOMEID = URL(
-  "/expanse/delete/:userId/:expenseId"
+  "/expanse/delete"
 );
