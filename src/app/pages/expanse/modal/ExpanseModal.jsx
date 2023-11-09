@@ -5,12 +5,12 @@ import {
   handleSelectChange,
 } from "../eventHandler/event";
 import { Modal, DateInput, dayjs, TextInput, SelectInput } from "../index";
-const IncomeModal = (props) => {
+const ExpanseModal = (props) => {
   const handleCancel = () => {
     props.setIsModalOpen(false);
     props.setState({
       ...props.state,
-      incomeDate: "",
+      expanseDate: "",
       description: "",
       amount: "",
       category_name: "",
@@ -32,9 +32,9 @@ const IncomeModal = (props) => {
         <div>
           {/* date input field */}
           <DateInput
-            name="incomeDate"
-            label="Income Date"
-            value={props.state.incomeDate ? dayjs(props.state.incomeDate) : ""}
+            name="expanseDate"
+            label="Expanse Date"
+            value={props.state.expanseDate ? dayjs(props.state.expanseDate) : ""}
             onChange={(val) =>
               handlePickUpDateChange(
                 val,
@@ -44,7 +44,7 @@ const IncomeModal = (props) => {
                 props.errorState
               )
             }
-            error={props.errorState.incomeDateErr}
+            error={props.errorState.expanseDateErr}
             isRequired={true}
           />
 
@@ -204,4 +204,4 @@ const IncomeModal = (props) => {
     </>
   );
 };
-export default IncomeModal;
+export default ExpanseModal;

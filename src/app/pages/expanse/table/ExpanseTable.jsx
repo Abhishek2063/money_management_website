@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import {
   getPageData,
-  handleDeleteIncomeDetails,
-  handleEditIncomeButton,
-  handleEditIncomeDetails,
+  handleDeleteExpanseDetails,
+  handleEditExpanseButton,
+  handleEditExpanseDetails,
 } from "../eventHandler/event";
-import IncomeModal from "../modal/IncomeModal";
+import ExpanseModal from "../modal/ExpanseModal";
 import {
   Table,
   _,
@@ -15,8 +15,8 @@ import {
   DeleteOutlined,
   Button,
 } from "../index";
-const IncomeTable = (props) => {
-  const [editIncomeDetailsId, setEditIncomeDetailsId] = useState("");
+const ExpanseTable = (props) => {
+  const [editExpanseDetailsId, setEditExpanseDetailsId] = useState("");
   return (
     <>
       <Table striped bordered hover>
@@ -30,8 +30,8 @@ const IncomeTable = (props) => {
           </tr>
         </thead>
         <tbody>
-          {props.incomeDataList && props.incomeDataList.length > 0 ? (
-            _.map(props.incomeDataList, (data, i) => {
+          {props.expanseDataList && props.expanseDataList.length > 0 ? (
+            _.map(props.expanseDataList, (data, i) => {
               return (
                 <tr key={i + 1}>
                   <td>{dayjs(data.date).format("MM-DD-YYYY")}</td>
@@ -41,26 +41,26 @@ const IncomeTable = (props) => {
                   <td>
                     <Button
                       type="button"
-                      //   text="Add Income"
+                      //   text="Add expanse"
                       className="edit-icon"
                       icon={<EditOutlined />}
                       onClick={() =>
-                        handleEditIncomeDetails(
-                          props.incomeData,
-                          props.setIncomeData,
+                        handleEditExpanseDetails(
+                          props.expanseData,
+                          props.setExpanseData,
                           props.setEditModalBox,
                           data,
-                          setEditIncomeDetailsId
+                          setEditExpanseDetailsId
                         )
                       }
                     />
                     <Button
                       type="button"
-                      //   text="Add Income"
+                      //   text="Add Expanse"
                       className="delete-icon "
                       icon={<DeleteOutlined />}
                       onClick={() =>
-                        handleDeleteIncomeDetails(
+                        handleDeleteExpanseDetails(
                           data,
                           props.userData,
                           props.setLoader,
@@ -94,31 +94,31 @@ const IncomeTable = (props) => {
         ""
       )}
 
-      <IncomeModal
+      <ExpanseModal
         setIsModalOpen={props.setEditModalBox}
-        modalTitle="Edit Income Details"
+        modalTitle="Edit Expanse Details"
         isModalOpen={props.editModalBox}
         handleSubmitButton={(e) =>
-          handleEditIncomeButton(
+          handleEditExpanseButton(
             e,
             props.setLoader,
-            props.incomeData,
-            props.setIncomeData,
-            props.incomeDataErr,
-            props.setIncomeDataErr,
+            props.expanseData,
+            props.setExpanseData,
+            props.expanseDataErr,
+            props.setExpanseDataErr,
             props.dispatch,
             props.userData,
-            editIncomeDetailsId
+            editExpanseDetailsId
           )
         }
-        state={props.incomeData}
-        setState={props.setIncomeData}
-        errorState={props.incomeDataErr}
-        setErrorState={props.setIncomeDataErr}
+        state={props.expanseData}
+        setState={props.setExpanseData}
+        errorState={props.expanseDataErr}
+        setErrorState={props.setExpanseDataErr}
         categoryList={props.categoryList}
       />
     </>
   );
 };
 
-export default IncomeTable;
+export default ExpanseTable;

@@ -18,19 +18,25 @@ export async function expanseStoreApi(data) {
 
 // expanseGetByUserId api
 export async function expanseGetByUserIdApi(data) {
-  let userData = data.data;
+  const userData = data.data;
+  const URL = `${EXPANSEGETBYUSERID}/${userData.user_id}`;
+  const queryParams = {
+    page: userData.page,
+  };
+
   return request({
-    url: EXPANSEGETBYUSERID,
+    url: URL,
     method: "get",
-    data: userData,
+    params: queryParams, // Use "params" for query parameters
   });
 }
 
 // expanseUpdateByUserIdIncomeId api
 export async function expanseUpdateByUserIdIncomeIdApi(data) {
   let userData = data.data;
+  const URL = `${EXPANSEUPDATEBYUSERIDEXPANSEID}/${userData.user_id}/${userData.expanseId}`;
   return request({
-    url: EXPANSEUPDATEBYUSERIDEXPANSEID,
+    url: URL,
     method: "put",
     data: userData,
   });
@@ -39,8 +45,9 @@ export async function expanseUpdateByUserIdIncomeIdApi(data) {
 // expanseDeleteByUserIdIncomeId api
 export async function expanseDeleteByUserIdIncomeIdApi(data) {
   let userData = data.data;
+  const URL = `${EXPANSEDELETEBYUSERIDINCOMEID}/${userData.user_id}/${userData.expanseId}`;
   return request({
-    url: EXPANSEDELETEBYUSERIDINCOMEID,
+    url: URL,
     method: "delete",
     data: userData,
   });

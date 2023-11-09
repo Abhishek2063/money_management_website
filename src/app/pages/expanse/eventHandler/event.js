@@ -1,10 +1,10 @@
 import {
   dayjs,
   fieldValidator,
-  incomeDeleteByUserIdIncomeId,
-  incomeGetByUserId,
-  incomeStore,
-  incomeUpdateByUserIdIncomeId,
+  expanseDeleteByUserIdIncomeId,
+  expanseGetByUserId,
+  expanseStore,
+  expanseUpdateByUserIdIncomeId,
   Swal,
 } from "../index";
 export const handlePickUpDateChange = (
@@ -16,14 +16,14 @@ export const handlePickUpDateChange = (
 ) => {
   if (val) {
     const pickUp = dayjs(val).format("MM-DD-YYYY");
-    setState({ ...state, incomeDate: pickUp });
+    setState({ ...state, expanseDate: pickUp });
     setErrorState({
       ...errorState,
-      incomeDateErr: "",
-      incomeDateCls: "",
+      expanseDateErr: "",
+      expanseDateCls: "",
     });
   } else {
-    setState({ ...state, incomeDate: "" });
+    setState({ ...state, expanseDate: "" });
   }
 };
 
@@ -93,52 +93,52 @@ export const handleSelectChange = (value, state, setState) => {
 export const handleSubmitButton = (
   e,
   setLoader,
-  incomeData,
-  setIncomeData,
-  incomeDataErr,
-  setIncomeDataErr,
+  expanseData,
+  setExpanseData,
+  expanseDataErr,
+  setExpanseDataErr,
   dispatch,
   userData
 ) => {
   e.preventDefault();
-  const isFormValid = validateForm(incomeData, incomeDataErr, setIncomeDataErr);
+  const isFormValid = validateForm(expanseData, expanseDataErr, setExpanseDataErr);
   if (isFormValid) {
     // Proceed with registration logic
     setLoader(true);
     const data = {
       user_id: userData.userId,
-      date: new Date(incomeData.incomeDate),
-      description: incomeData.description,
-      amount: incomeData.amount,
+      date: new Date(expanseData.expanseDate),
+      description: expanseData.description,
+      amount: expanseData.amount,
     };
-    if (incomeData.other_category_show) {
+    if (expanseData.other_category_show) {
       data.other_category = {
-        category_name: incomeData.other_category,
-        category_type: "income",
-        category_description: incomeData.other_category_description,
+        category_name: expanseData.other_category,
+        category_type: "expense",
+        category_description: expanseData.other_category_description,
       };
     } else {
-      data.category_id = incomeData.category_name;
+      data.category_id = expanseData.category_name;
     }
-    dispatch(incomeStore(data));
+    dispatch(expanseStore(data));
   }
 };
 
-export const validateForm = (incomeData, incomeDataErr, setIncomeDataErr) => {
+export const validateForm = (expanseData, expanseDataErr, setExpanseDataErr) => {
   const errors = {};
-  // Check if incomeDate is empty
-  if (!incomeData.incomeDate) {
-    errors.incomeDateErr = "Income Date is required";
-    errors.incomeDateCls = true;
+  // Check if expanseDate is empty
+  if (!expanseData.expanseDate) {
+    errors.expanseDateErr = "Expanse Date is required";
+    errors.expanseDateCls = true;
   }
 
   // Check if category_name is empty
-  if (!incomeData.category_name) {
+  if (!expanseData.category_name) {
     errors.category_nameErr = "Category Name is required";
     errors.category_nameCls = true;
   }
-  for (const key in incomeData) {
-    if (incomeData.hasOwnProperty(key)) {
+  for (const key in expanseData) {
+    if (expanseData.hasOwnProperty(key)) {
       let type = "";
       let maxLength = null;
       let minLength = null;
@@ -147,14 +147,14 @@ export const validateForm = (incomeData, incomeDataErr, setIncomeDataErr) => {
         maxLength = null;
         minLength = null;
       }
-      if (key === "other_category" && incomeData.other_category_show) {
+      if (key === "other_category" && expanseData.other_category_show) {
         type = "alphabetics";
         maxLength = null;
         minLength = null;
       }
       if (
         key === "other_category_description" &&
-        incomeData.other_category_show
+        expanseData.other_category_show
       ) {
         type = "alphabetics";
         maxLength = null;
@@ -173,7 +173,7 @@ export const validateForm = (incomeData, incomeDataErr, setIncomeDataErr) => {
       ) {
         const error = checkValidation(
           key,
-          incomeData[key],
+          expanseData[key],
           type,
           maxLength,
           minLength
@@ -185,25 +185,25 @@ export const validateForm = (incomeData, incomeDataErr, setIncomeDataErr) => {
       }
     }
   }
-  setIncomeDataErr(errors);
+  setExpanseDataErr(errors);
   return Object.keys(errors).length === 0; // Form is valid if no errors are present
 };
 
 export const getPageData = (page, userdata, dispatch, setLoader) => {
-  dispatch(incomeGetByUserId({ user_id: userdata.userId, page: page }));
+  dispatch(expanseGetByUserId({ user_id: userdata.userId, page: page }));
   setLoader(true);
 };
 
-export const handleEditIncomeDetails = (
-  incomeData,
-  setIncomeData,
+export const handleEditExpanseDetails = (
+  expanseData,
+  setExpanseData,
   setIsModalOpen,
   data,
-  setEditIncomeDetailsId
+  setEditExpanseDetailsId
 ) => {
-  setIncomeData({
-    ...incomeData,
-    incomeDate: data.date,
+  setExpanseData({
+    ...expanseData,
+    expanseDate: data.date,
     description: data.description,
     amount: data.amount,
     category_name: data.category_id._id,
@@ -212,46 +212,46 @@ export const handleEditIncomeDetails = (
     other_category_description: "",
   });
   setIsModalOpen(true);
-  setEditIncomeDetailsId(data._id);
+  setEditExpanseDetailsId(data._id);
 };
 
-export const handleEditIncomeButton = (
+export const handleEditExpanseButton = (
   e,
   setLoader,
-  incomeData,
-  setIncomeData,
-  incomeDataErr,
-  setIncomeDataErr,
+  expanseData,
+  setExpanseData,
+  expanseDataErr,
+  setExpanseDataErr,
   dispatch,
   userData,
-  editIncomeDetailsId
+  editExpanseDetailsId
 ) => {
   e.preventDefault();
-  const isFormValid = validateForm(incomeData, incomeDataErr, setIncomeDataErr);
+  const isFormValid = validateForm(expanseData, expanseDataErr, setExpanseDataErr);
   if (isFormValid) {
     // Proceed with registration logic
     setLoader(true);
     const data = {
       user_id: userData.userId,
-      date: new Date(incomeData.incomeDate),
-      description: incomeData.description,
-      amount: incomeData.amount,
-      incomeId: editIncomeDetailsId,
+      date: new Date(expanseData.expanseDate),
+      description: expanseData.description,
+      amount: expanseData.amount,
+      expanseId: editExpanseDetailsId,
     };
-    if (incomeData.other_category_show) {
+    if (expanseData.other_category_show) {
       data.other_category = {
-        category_name: incomeData.other_category,
-        category_type: "income",
-        category_description: incomeData.other_category_description,
+        category_name: expanseData.other_category,
+        category_type: "expense",
+        category_description: expanseData.other_category_description,
       };
     } else {
-      data.category_id = incomeData.category_name;
+      data.category_id = expanseData.category_name;
     }
-    dispatch(incomeUpdateByUserIdIncomeId(data));
+    dispatch(expanseUpdateByUserIdIncomeId(data));
   }
 };
 
-export const handleDeleteIncomeDetails = (
+export const handleDeleteExpanseDetails = (
   data,
   userData,
   setLoader,
@@ -259,7 +259,7 @@ export const handleDeleteIncomeDetails = (
 ) => {
   Swal.fire({
     title: "Permission Before Delete",
-    text: " Are you sure? You will not be able to recover the deleted income details!",
+    text: " Are you sure? You will not be able to recover the deleted expanse details!",
     confirmButtonText: "OK",
     allowOutsideClick: false,
     allowEscapeKey: false,
@@ -269,10 +269,10 @@ export const handleDeleteIncomeDetails = (
     if (result.isConfirmed) {
       const deleteUserData = {
         user_id: userData.userId,
-        incomeId: data._id,
+        expanseId: data._id,
       };
       setLoader(true);
-      dispatch(incomeDeleteByUserIdIncomeId(deleteUserData));
+      dispatch(expanseDeleteByUserIdIncomeId(deleteUserData));
     }
   });
 };
