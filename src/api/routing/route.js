@@ -25,16 +25,16 @@ export const FACEBOOK_LOGIN_CALLBACK = URL("/auth/facebook/callback/success");
 export const CATEGORYCREATE = URL("/categories/create");
 export const CATEGORYGETBYUSERID = URL("/categories/list");
 export const CATEGORYGETBYUSERIDCATEGORYID = URL(
-  "/categories/get/:userId/:categoryId"
+  "/categories/get"
 );
 export const CATEGORYGETBYUSERIDCATEGORYTYPE = URL(
   "/categories/list"
 );
 export const CATEGORYUPDATEBYUSERIDCATEGORYID = URL(
-  "/categories/update/:userId/:categoryId"
+  "/categories/update"
 );
 export const CATEGORYDELETEBYUSERIDCATEGORYID = URL(
-  "/categories/delete/:userId/:categoryId"
+  "/categories/delete"
 );
 
 /***** Income Routes*********/
