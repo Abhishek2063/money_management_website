@@ -148,6 +148,7 @@ const FormFields = (props) => {
         error={props.formDataError.enteredOTPErr}
         isRequired={true}
       /> : "" }
+       {props.showOTPField ? <p> <span className="time-heading">Time remaining:</span> <span className={props.timer < 15 ? "time-count-danger" : "time-count"}>{props.timer} seconds</span></p> : null}
       {/* <Button
         type="button"
         text=" Login with Facebook"

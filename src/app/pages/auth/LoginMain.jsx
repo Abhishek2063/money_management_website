@@ -22,6 +22,8 @@ const LoginMain = () => {
     otpId: "",
     enteredOTP: "",
   });
+  // Add state for the timer
+  const [timer, setTimer] = useState(45);
   const [formDataError, setFormDataError] = useState([]);
   const [showOTPField, setShowOTPField] = useState(false);
   const [loader, setLoader] = useState(false);
@@ -29,6 +31,39 @@ const LoginMain = () => {
   const loginData = useSelector((state) => state.auth.loginData);
   const prevloginData = usePrevious({ loginData });
   const navigate = useNavigate();
+
+  // Use useEffect to update the state after 45 seconds
+  useEffect(() => {
+    let countdown;
+    if (showOTPField && timer > 0) {
+      countdown = setInterval(() => {
+        setTimer((prevTimer) => (prevTimer > 0 ? prevTimer - 1 : 0));
+      }, 1000);
+    }
+  
+    // Clear the interval when the timer reaches zero
+    if (timer === 0) {
+      clearInterval(countdown);
+      // Optionally, you can perform additional actions when the timer reaches zero
+      handleTimerExpiration();
+    }
+  
+    return () => {
+      clearInterval(countdown);
+    };
+  }, [showOTPField, timer]);
+
+  const handleTimerExpiration = () => {
+    setShowOTPField(false)
+    setTimer(45)
+  }
+  // Reset the timer when OTP field is shown
+  useEffect(() => {
+    if (showOTPField) {
+      setTimer(45);
+    }
+  }, [showOTPField]);
+
   useEffect(() => {
     if (prevloginData && prevloginData.loginData !== loginData) {
       if (loginData && _.has(loginData, "data") && loginData.success === true) {
@@ -195,6 +230,7 @@ const LoginMain = () => {
               setLoader={setLoader}
               dispatch={dispatch}
               showOTPField={showOTPField}
+              timer={timer}
             />
           </form>
         </div>
