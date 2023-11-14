@@ -1,5 +1,5 @@
 import { fieldValidator, usePrevious } from "../../common/custom";
-import { registration,login } from "../../redux/auth/auth.action";
+import { registration,login,verifyOtp } from "../../redux/auth/auth.action";
 import { message } from "antd";
 import TextInput from "../../components/FormComponents/TextInput";
 import PasswordInput from "../../components/FormComponents/PasswordInput";
@@ -31,5 +31,6 @@ export {
   FormFields,
   handleInputChange,
   NavigationButton,
-  login
+  login,
+  verifyOtp
 };

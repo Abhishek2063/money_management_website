@@ -8,4 +8,5 @@ export const DEFAULT_STATE = {
   googleLoginData: {},
   googleLoginCallbackData: {},
   facebookLoginCallbackData: {},
+  verifyOtpData: {},
 };

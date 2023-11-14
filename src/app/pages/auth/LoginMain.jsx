@@ -12,26 +12,71 @@ import "../../assets/css/login.css";
 import logoImage from "../../assets/images/favicon-3.png";
 import { Tokens, User } from "../../storage";
 import { useNavigate } from "react-router-dom";
-import { DASHBOARD, Home } from "../../routing/routeConstants";
+import { Home } from "../../routing/routeConstants";
 const LoginMain = () => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+    userId: "",
+    otpId: "",
+    enteredOTP: "",
   });
+  // Add state for the timer
+  const [timer, setTimer] = useState(45);
   const [formDataError, setFormDataError] = useState([]);
+  const [showOTPField, setShowOTPField] = useState(false);
   const [loader, setLoader] = useState(false);
 
   const loginData = useSelector((state) => state.auth.loginData);
   const prevloginData = usePrevious({ loginData });
   const navigate = useNavigate();
+
+  // Use useEffect to update the state after 45 seconds
+  useEffect(() => {
+    let countdown;
+    if (showOTPField && timer > 0) {
+      countdown = setInterval(() => {
+        setTimer((prevTimer) => (prevTimer > 0 ? prevTimer - 1 : 0));
+      }, 1000);
+    }
+  
+    // Clear the interval when the timer reaches zero
+    if (timer === 0) {
+      clearInterval(countdown);
+      // Optionally, you can perform additional actions when the timer reaches zero
+      handleTimerExpiration();
+    }
+  
+    return () => {
+      clearInterval(countdown);
+    };
+  }, [showOTPField, timer]);
+
+  const handleTimerExpiration = () => {
+    setShowOTPField(false)
+    setTimer(45)
+  }
+  // Reset the timer when OTP field is shown
+  useEffect(() => {
+    if (showOTPField) {
+      setTimer(45);
+    }
+  }, [showOTPField]);
+
   useEffect(() => {
     if (prevloginData && prevloginData.loginData !== loginData) {
       if (loginData && _.has(loginData, "data") && loginData.success === true) {
         message.success(loginData.message);
-        Tokens.setToken(loginData.data.token);
-        User.setUserDetails(loginData.data);
-        navigate(Home,{replace : true});
+        setShowOTPField(true);
+        setFormData({
+          ...formData,
+          userId: loginData.data.user_id,
+          otpId: loginData.data._id,
+        });
+        // Tokens.setToken(loginData.data.token);
+        // User.setUserDetails(loginData.data);
+        // navigate(Home,{replace : true});
         setLoader(false);
       }
       if (loginData && loginData.success === false) {
@@ -126,6 +171,48 @@ const LoginMain = () => {
     } // eslint-disable-next-line
   }, [facebookLoginCallbackData, prevfacebookLoginCallbackData]);
 
+  const verifyOtpData = useSelector((state) => state.auth.verifyOtpData);
+  const prevverifyOtpData = usePrevious({ verifyOtpData });
+  useEffect(() => {
+    if (
+      prevverifyOtpData &&
+      prevverifyOtpData.verifyOtpData !== verifyOtpData
+    ) {
+      if (
+        verifyOtpData &&
+        _.has(verifyOtpData, "data") &&
+        verifyOtpData.success === true
+      ) {
+        message.success(verifyOtpData.message);
+        setShowOTPField(false);
+        setFormData({
+          ...formData,
+          email: "",
+          password: "",
+          userId: "",
+          otpId: "",
+          enteredOTP: "",
+        });
+        Tokens.setToken(verifyOtpData.data.token);
+        User.setUserDetails(verifyOtpData.data);
+        navigate(Home, { replace: true });
+        setLoader(false);
+      }
+      if (verifyOtpData && verifyOtpData.success === false) {
+        setLoader(false);
+        setShowOTPField(false);
+
+        if (Array.isArray(verifyOtpData.error)) {
+          message.error("Invalid Data");
+        } else if (typeof verifyOtpData.error === "string") {
+          message.error(verifyOtpData.error);
+        } else {
+          message.error("An error occurred."); // Handle other error types as needed
+        }
+      }
+    } // eslint-disable-next-line
+  }, [verifyOtpData, prevverifyOtpData]);
+
   return (
     <div className="login-container position-relative">
       <div className="login-page">
@@ -142,6 +229,8 @@ const LoginMain = () => {
               setFormDataError={setFormDataError}
               setLoader={setLoader}
               dispatch={dispatch}
+              showOTPField={showOTPField}
+              timer={timer}
             />
           </form>
         </div>

@@ -9,6 +9,7 @@ import {
   LOGOUT,
   REGISTRATION,
   UPDATEUSERBYID,
+  VERIFY_OTP,
 } from "../routing/route";
 
 // registration api
@@ -87,7 +88,7 @@ export async function googleLoginCallbackApi(data) {
     url: GOOGLE_LOGIN_CALLBACK,
     method: "get",
     data: userData,
-    withCredentials: true
+    withCredentials: true,
   });
 }
 
@@ -98,6 +99,16 @@ export async function facebookLoginCallbackApi(data) {
     url: FACEBOOK_LOGIN_CALLBACK,
     method: "get",
     data: userData,
-    withCredentials: true
+    withCredentials: true,
+  });
+}
+
+// verifyOtp api
+export async function verifyOtpApi(data) {
+  let userData = data.data;
+  return request({
+    url: VERIFY_OTP,
+    method: "post",
+    data: userData,
   });
 }

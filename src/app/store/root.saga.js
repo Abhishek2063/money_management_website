@@ -9,6 +9,7 @@ import {
   registrationWatcher,
   updateUserByIdWatcher,
   userGetByIdWatcher,
+  verifyOtpWatcher,
 } from "../redux/auth/auth.saga";
 import {
   categoryCreateWatcher,
@@ -55,6 +56,7 @@ export function* rootSaga() {
     logoutUserWatcher(),
     googleLoginWatcher(),
     googleLoginCallbackWatcher(),
-    facebookLoginCallbackWatcher()
+    facebookLoginCallbackWatcher(),
+    verifyOtpWatcher(),
   ]);
 }
