@@ -5,6 +5,7 @@ import {
   handleSelectChange,
 } from "../eventHandler/event";
 import { Modal, DateInput, dayjs, TextInput, SelectInput } from "../index";
+import { Select } from "antd";
 const IncomeModal = (props) => {
   const handleCancel = () => {
     props.setIsModalOpen(false);
@@ -19,6 +20,24 @@ const IncomeModal = (props) => {
     });
     props.setErrorState([]);
   };
+
+  const { Option } = Select;
+  // category dropdown handling
+  const categoryDropDownList = [];
+  props.categoryList.forEach(function (item, i) {
+    categoryDropDownList.push(
+      <Option key={item._id} value={item._id}>
+        {item.category_name}
+      </Option>
+    );
+  });
+
+  // Adding the "Other" option with ID 0
+  categoryDropDownList.push(
+    <Option key={0} value="Other">
+      Other
+    </Option>
+  );
   return (
     <>
       <Modal
@@ -92,7 +111,7 @@ const IncomeModal = (props) => {
             }
             error={props.errorState.category_nameErr}
             isRequired={true}
-            selectOptionArray={props.categoryList}
+            selectOptionArray={categoryDropDownList}
           />
 
           {/* other category */}

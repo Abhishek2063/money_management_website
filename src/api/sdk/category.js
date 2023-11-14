@@ -20,12 +20,16 @@ export async function categoryCreateApi(data) {
 
 // categoryGetByUserId api
 export async function categoryGetByUserIdApi(data) {
-  let userData = data.data;
-  const URL = `${CATEGORYGETBYUSERID}/${userData}`
+  const userData = data.data;
+  const URL = `${CATEGORYGETBYUSERID}/${userData.user_id}`;
+  const queryParams = {
+    page: userData.page,
+  };
+
   return request({
     url: URL,
     method: "get",
-    data: userData,
+    params: queryParams, // Use "params" for query parameters
   });
 }
 
@@ -42,7 +46,7 @@ export async function categoryGetByUserIdCategoryIdApi(data) {
 // categoryGetByUserIdCategoryType api
 export async function categoryGetByUserIdCategoryTypeApi(data) {
   let userData = data.data;
-  const URL = `${CATEGORYGETBYUSERIDCATEGORYTYPE}/${userData.user_id}/${userData.category_type}`
+  const URL = `${CATEGORYGETBYUSERIDCATEGORYTYPE}/${userData.user_id}/${userData.category_type}`;
   return request({
     url: URL,
     method: "get",
@@ -53,8 +57,9 @@ export async function categoryGetByUserIdCategoryTypeApi(data) {
 // categoryUpdateByUserIdCategoryId api
 export async function categoryUpdateByUserIdCategoryIdApi(data) {
   let userData = data.data;
+  const URL = `${CATEGORYUPDATEBYUSERIDCATEGORYID}/${userData.user_id}/${userData.categoryId}`;
   return request({
-    url: CATEGORYUPDATEBYUSERIDCATEGORYID,
+    url: URL,
     method: "put",
     data: userData,
   });
@@ -63,8 +68,9 @@ export async function categoryUpdateByUserIdCategoryIdApi(data) {
 // categoryDeleteByUserIdCategoryId api
 export async function categoryDeleteByUserIdCategoryIdApi(data) {
   let userData = data.data;
+  const URL = `${CATEGORYDELETEBYUSERIDCATEGORYID}/${userData.user_id}/${userData.categoryId}`;
   return request({
-    url: CATEGORYDELETEBYUSERIDCATEGORYID,
+    url: URL,
     method: "delete",
     data: userData,
   });

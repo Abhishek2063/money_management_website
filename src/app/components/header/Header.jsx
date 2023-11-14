@@ -7,6 +7,7 @@ import {
   BankOutlined,
   CreditCardOutlined,
   HomeOutlined,
+  ApartmentOutlined,
 } from "@ant-design/icons";
 import LogoImage from "../../assets/images/favicon-3.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,7 +19,15 @@ import { message } from "antd";
 import { Tokens } from "../../storage";
 import _ from "lodash";
 import Loader from "../../common/loader";
-import { LOGIN } from "../../routing/routeConstants";
+import {
+  BUDGET,
+  CATEGORY,
+  DASHBOARD,
+  EXPANSE,
+  Home,
+  INCOME,
+  LOGIN,
+} from "../../routing/routeConstants";
 
 const Header = () => {
   const [loader, setLoader] = useState(false);
@@ -36,7 +45,11 @@ const Header = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (prevlogoutUser && prevlogoutUser.logoutUser !== logoutUser) {
-      if (logoutUser && _.has(logoutUser, "data") && logoutUser.success === true) {
+      if (
+        logoutUser &&
+        _.has(logoutUser, "data") &&
+        logoutUser.success === true
+      ) {
         message.success(logoutUser.message);
         Tokens.removeLocalData();
         clearUserDetails();
@@ -65,24 +78,24 @@ const Header = () => {
         style={{ background: "linear-gradient(to right, #4CAF50, #2196F3)" }}
       >
         <Container>
-          <Navbar.Brand as={NavLink} to="/home">
+          <Navbar.Brand as={NavLink} to={Home}>
             <img src={LogoImage} alt="Logo" width="40" height="40" />
           </Navbar.Brand>
           <Nav className="mr-auto">
-            <Nav.Link as={NavLink} to="/home" className="nav-link">
+            <Nav.Link as={NavLink} to={Home} className="nav-link">
               <HomeOutlined /> Home
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/dashboard" className="nav-link">
+            <Nav.Link as={NavLink} to={DASHBOARD} className="nav-link">
               <DashboardOutlined /> Dashboard
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/expanse" className="nav-link">
+            <Nav.Link as={NavLink} to={EXPANSE} className="nav-link">
               <RadarChartOutlined /> Expense
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/income" className="nav-link">
+            <Nav.Link as={NavLink} to={INCOME} className="nav-link">
               <BankOutlined /> Income
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/budget" className="nav-link">
-              <CreditCardOutlined /> Budget
+            <Nav.Link as={NavLink} to={CATEGORY} className="nav-link">
+              <ApartmentOutlined /> Category
             </Nav.Link>
           </Nav>
           <Nav>

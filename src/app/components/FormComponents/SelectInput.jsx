@@ -12,7 +12,6 @@ const SelectInput = ({
   isRequired,
   selectOptionArray,
 }) => {
-  const { Option } = Select;
 
   return (
     <div className="form-group">
@@ -29,19 +28,7 @@ const SelectInput = ({
         onChange={onChange}
         placeholder={`Choose ${label}.`}
       >
-        {selectOptionArray && selectOptionArray.length > 0 ? (
-          [ ...selectOptionArray,{ _id: "Other", category_name: "Other" }].map(
-            (item, index) => (
-              <Option key={item._id} value={item._id}>
-                {item.category_name}
-              </Option>
-            )
-          )
-        ) : (
-          <Option value={null} disabled>
-            No {label} available
-          </Option>
-        )}
+        {selectOptionArray}
       </Select>
       {error ? <span className="field-required">{error}</span> : null}
     </div>

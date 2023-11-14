@@ -1,5 +1,5 @@
 import React from "react";
-import { DASHBOARD, Home, EXPANSE, INCOME, BUDGET } from "../routeConstants";
+import { DASHBOARD, Home, EXPANSE, INCOME, BUDGET, CATEGORY } from "../routeConstants";
 export const DashboardMain = React.lazy(() =>
   import("../../pages/dashboard/DashboardMain")
 );
@@ -13,11 +13,15 @@ export const IncomeMain = React.lazy(() =>
 export const BudgetMain = React.lazy(() =>
   import("../../pages/budget/BudgetMain")
 );
-
+export const CategoryMain = React.lazy(() =>
+  import("../../pages/category/CategoryMain")
+);
 export const PrivateRoute = [
   { path: DASHBOARD, component: <DashboardMain />, exact: true },
   { path: Home, component: <HomeMain /> },
   { path: EXPANSE, component: <ExpanseMain /> },
   { path: INCOME, component: <IncomeMain /> },
   { path: BUDGET, component: <BudgetMain /> },
+  { path: CATEGORY, component: <CategoryMain /> },
+
 ];

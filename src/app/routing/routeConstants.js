@@ -7,6 +7,8 @@ export const LOGINERROR = "/auth/login/error";
 export const EXPANSE = "/expanse";
 export const INCOME = "/income";
 export const BUDGET = "/budget";
+export const CATEGORY = "/category";
+
 
 
 
