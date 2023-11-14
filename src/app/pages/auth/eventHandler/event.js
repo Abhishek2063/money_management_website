@@ -1,4 +1,4 @@
-import { fieldValidator, login } from "../index";
+import { fieldValidator, login, verifyOtp } from "../index";
 
 // Check Validation Function
 export const checkValidation = (
@@ -113,3 +113,54 @@ export const handleSubmit = (
   }
 };
 
+export const handleOTPSubmit = (
+  e,
+  setLoader,
+  formData,
+  setFormDataError,
+  dispatch
+) => {
+  e.preventDefault();
+  const isFormValid = validateOTPForm(formData, setFormDataError);
+
+  if (isFormValid) {
+    // Proceed with registration logic
+    setLoader(true);
+    const data = {
+      userId: formData.userId,
+      otpId: formData.otpId,
+      enteredOTP: formData.enteredOTP,
+    };
+    dispatch(verifyOtp(data));
+  }
+};
+
+export const validateOTPForm = (formData, setFormDataError) => {
+  const errors = {};
+  for (const key in formData) {
+    if (formData.hasOwnProperty(key)) {
+      let type = "";
+      let maxLength = null;
+      let minLength = null;
+      if (key === "enteredOTP") {
+        type = "onlynumber";
+        maxLength = 4;
+        minLength = null;
+      }
+      const error = checkValidation(
+        key,
+        formData[key],
+        type,
+        maxLength,
+        minLength,
+        formData
+      );
+      if (error.errorMsg) {
+        errors[error.fieldNameErr] = error.errorMsg;
+        errors[error.fieldCls] = error.setClassName;
+      }
+    }
+  }
+  setFormDataError(errors);
+  return Object.keys(errors).length === 0; // Form is valid if no errors are present
+};

@@ -10,9 +10,10 @@ import {
 import { REGISTER } from "../../../routing/routeConstants";
 import { API_URL } from "../../../common/config";
 import {
-  facebookLoginCallback,
+  // facebookLoginCallback,
   googleLoginCallback,
 } from "../../../redux/auth/auth.action";
+import { handleOTPSubmit } from "../eventHandler/event";
 const FormFields = (props) => {
   let timer = null;
   const handleGoogleLogin = (e) => {
@@ -33,23 +34,23 @@ const FormFields = (props) => {
     }
   };
 
-  const handleFaceBookLogin = (e) => {
-    e.preventDefault();
-    const newGoogleLoginWindow = window.open(
-      `${API_URL}/auth/facebook/`,
-      "_blank",
-      "width=500,height=600"
-    );
-    if (newGoogleLoginWindow) {
-      timer = setInterval(() => {
-        if (newGoogleLoginWindow.closed) {
-          props.setLoader(true);
-          props.dispatch(facebookLoginCallback());
-          if (timer) clearInterval(timer);
-        }
-      }, 500);
-    }
-  };
+  // const handleFaceBookLogin = (e) => {
+  //   e.preventDefault();
+  //   const newGoogleLoginWindow = window.open(
+  //     `${API_URL}/auth/facebook/`,
+  //     "_blank",
+  //     "width=500,height=600"
+  //   );
+  //   if (newGoogleLoginWindow) {
+  //     timer = setInterval(() => {
+  //       if (newGoogleLoginWindow.closed) {
+  //         props.setLoader(true);
+  //         props.dispatch(facebookLoginCallback());
+  //         if (timer) clearInterval(timer);
+  //       }
+  //     }, 500);
+  //   }
+  // };
 
   return (
     <>
@@ -116,6 +117,37 @@ const FormFields = (props) => {
         isRequired={true}
       />
 
+     {props.showOTPField ? <TextInput
+        name="enteredOTP"
+        label="OTP"
+        value={props.formData.enteredOTP}
+        onChange={(e) =>
+          handleInputChange(
+            e,
+            "onlynumber",
+            4,
+            null,
+            props.setFormDataError,
+            props.formDataError,
+            props.setFormData,
+            props.formData
+          )
+        }
+        onBlur={(e) =>
+          handleInputChange(
+            e,
+            "onlynumber",
+            4,
+            null,
+            props.setFormDataError,
+            props.formDataError,
+            props.setFormData,
+            props.formData
+          )
+        }
+        error={props.formDataError.enteredOTPErr}
+        isRequired={true}
+      /> : "" }
       {/* <Button
         type="button"
         text=" Login with Facebook"
@@ -123,7 +155,7 @@ const FormFields = (props) => {
         onClick={handleFaceBookLogin}
       /> */}
 
-      <Button
+     {!props.showOTPField ? <Button
         type="submit"
         text="Login"
         className="submit-button"
@@ -136,7 +168,22 @@ const FormFields = (props) => {
             props.dispatch
           )
         }
+      /> : 
+      <Button
+        type="submit"
+        text="Verify OTP"
+        className="submit-button"
+        onClick={(e) =>
+          handleOTPSubmit(
+            e,
+            props.setLoader,
+            props.formData,
+            props.setFormDataError,
+            props.dispatch
+          )
+        }
       />
+      }
 
       <Button
         type="button"

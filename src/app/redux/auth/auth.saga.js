@@ -10,6 +10,7 @@ import {
   ERROR_LOGOUT,
   ERROR_REGISTRATION,
   ERROR_UPDATEUSERBYID,
+  ERROR_VERIFYOTP,
   FACEBOOKLOGINCALLBACK,
   GETLOGINUSERBYID,
   GETUSERBYID,
@@ -27,7 +28,9 @@ import {
   SUCCESS_LOGOUT,
   SUCCESS_REGISTRATION,
   SUCCESS_UPDATEUSERBYID,
+  SUCCESS_VERIFYOTP,
   UPDATEUSERBYID,
+  VERIFYOTP,
   facebookLoginCallbackResponse,
   getLoginUserByIdResponse,
   googleLoginCallbackResponse,
@@ -37,6 +40,7 @@ import {
   registrationResponse,
   updateUserByIdResponse,
   userGetByIdResponse,
+  verifyOtpResponse,
 } from "./auth.action";
 import {
   facebookLoginCallbackApi,
@@ -48,6 +52,7 @@ import {
   registrationApi,
   updateUserByIdApi,
   userGetByIdApi,
+  verifyOtpApi,
 } from "../../../api/sdk/auth";
 
 // Registration
@@ -173,4 +178,17 @@ function* facebookLoginCallbackRequest(data) {
 }
 export function* facebookLoginCallbackWatcher() {
   yield takeLatest(FACEBOOKLOGINCALLBACK, facebookLoginCallbackRequest);
+}
+
+// verifyOtp
+function* verifyOtpRequest(data) {
+  let getData = yield verifyOtpApi(data);
+  if (getData.success && _.has(getData, "data.data")) {
+    yield put(verifyOtpResponse(SUCCESS_VERIFYOTP, getData.data));
+  } else {
+    yield put(verifyOtpResponse(ERROR_VERIFYOTP, getData.data));
+  }
+}
+export function* verifyOtpWatcher() {
+  yield takeLatest(VERIFYOTP, verifyOtpRequest);
 }

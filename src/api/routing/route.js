@@ -17,6 +17,7 @@ export const LOGOUT = URL("/auth/logout/");
 export const GOOGLE_LOGIN = URL("/auth/google/");
 export const GOOGLE_LOGIN_CALLBACK = URL("/auth/google/callback/success");
 export const FACEBOOK_LOGIN_CALLBACK = URL("/auth/facebook/callback/success");
+export const VERIFY_OTP = URL("/auth/verify-otp");
 
 
 

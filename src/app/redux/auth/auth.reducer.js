@@ -8,6 +8,7 @@ import {
   ERROR_LOGOUT,
   ERROR_REGISTRATION,
   ERROR_UPDATEUSERBYID,
+  ERROR_VERIFYOTP,
   SUCCESS_FACEBOOKLOGINCALLBACK,
   SUCCESS_GETLOGINUSERBYID,
   SUCCESS_GETUSERBYID,
@@ -17,6 +18,7 @@ import {
   SUCCESS_LOGOUT,
   SUCCESS_REGISTRATION,
   SUCCESS_UPDATEUSERBYID,
+  SUCCESS_VERIFYOTP,
 } from "./auth.action";
 import { DEFAULT_STATE } from "./auth.state";
 
@@ -87,15 +89,25 @@ export const authReducer = (
         googleLoginCallbackData: errorGoogleLoginCallbackData,
       };
 
-      case SUCCESS_FACEBOOKLOGINCALLBACK:
-        const facebookLoginCallbackData = action.data;
-        return { ...state, facebookLoginCallbackData };
-      case ERROR_FACEBOOKLOGINCALLBACK:
-        const errorfacebookLoginCallbackData = action.data;
-        return {
-          ...state,
-          facebookLoginCallbackData: errorfacebookLoginCallbackData,
-        };
+    case SUCCESS_FACEBOOKLOGINCALLBACK:
+      const facebookLoginCallbackData = action.data;
+      return { ...state, facebookLoginCallbackData };
+    case ERROR_FACEBOOKLOGINCALLBACK:
+      const errorfacebookLoginCallbackData = action.data;
+      return {
+        ...state,
+        facebookLoginCallbackData: errorfacebookLoginCallbackData,
+      };
+
+    case SUCCESS_VERIFYOTP:
+      const verifyOtpData = action.data;
+      return { ...state, verifyOtpData };
+    case ERROR_VERIFYOTP:
+      const errorVerifyOtpData = action.data;
+      return {
+        ...state,
+        verifyOtpData: errorVerifyOtpData,
+      };
 
     default:
       return state;
