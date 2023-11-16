@@ -13,6 +13,7 @@ import {
   incomeGetByUserId,
   incomeStore,
   incomeUpdateByUserIdIncomeId,
+  incomeImportExcelFile
 } from "../../redux/incomeDetails/income.action";
 import dayjs from "dayjs";
 import Table from "react-bootstrap/Table";
@@ -52,4 +53,5 @@ export {
   incomeStore,
   incomeUpdateByUserIdIncomeId,
   Swal,
+  incomeImportExcelFile
 };

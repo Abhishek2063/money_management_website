@@ -32,12 +32,16 @@ export const INCOMESTORE = URL("/income/create");
 export const INCOMEGETBYUSERID = URL("/income/list");
 export const INCOMEUPDATEBYUSERIDINCOMEID = URL("/income/update");
 export const INCOMEDELETEBYUSERIDINCOMEID = URL("/income/delete");
+export const INCOMEIMPORTEXCELFILE = URL("/income/income-data-import");
+
 
 /***** Expanse Routes*********/
 export const EXPANSESTORE = URL("/expanse/create");
 export const EXPANSEGETBYUSERID = URL("/expanse/list");
 export const EXPANSEUPDATEBYUSERIDEXPANSEID = URL("/expanse/update");
 export const EXPANSEDELETEBYUSERIDINCOMEID = URL("/expanse/delete");
+export const EXPANSEIMPORTEXCELFILE = URL("/expanse/expanse-data-import");
+
 
 /***********Budget Routes******************* */
 export const BUDGETSTORE = URL("/budget/create");

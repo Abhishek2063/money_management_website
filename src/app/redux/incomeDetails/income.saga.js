@@ -3,24 +3,29 @@ import _ from "lodash";
 import {
   incomeDeleteByUserIdIncomeIdApi,
   incomeGetByUserIdApi,
+  incomeImportExcelApi,
   incomeStoreApi,
   incomeUpdateByUserIdIncomeIdApi,
 } from "../../../api/sdk/incomeDetails";
 import {
   ERROR_INCOMEDELETEBYUSERIDINCOMEID,
   ERROR_INCOMEGETBYUSERID,
+  ERROR_INCOMEIMPORTEXCELFILE,
   ERROR_INCOMESTORE,
   ERROR_INCOMEUPDATEBYUSERIDINCOMEID,
   INCOMEDELETEBYUSERIDINCOMEID,
   INCOMEGETBYUSERID,
+  INCOMEIMPORTEXCELFILE,
   INCOMESTORE,
   INCOMEUPDATEBYUSERIDINCOMEID,
   SUCCESS_INCOMEDELETEBYUSERIDINCOMEID,
   SUCCESS_INCOMEGETBYUSERID,
+  SUCCESS_INCOMEIMPORTEXCELFILE,
   SUCCESS_INCOMESTORE,
   SUCCESS_INCOMEUPDATEBYUSERIDINCOMEID,
   incomeDeleteByUserIdIncomeIdResponse,
   incomeGetByUserIdResponse,
+  incomeImportExcelFileResponse,
   incomeStoreResponse,
   incomeUpdateByUserIdIncomeIdResponse,
 } from "./income.action";
@@ -103,4 +108,21 @@ export function* incomeDeleteByUserIdIncomeIdWatcher() {
     INCOMEDELETEBYUSERIDINCOMEID,
     incomeDeleteByUserIdIncomeIdRequest
   );
+}
+
+// incomeImportExcelFile
+function* incomeImportExcelFileRequest(data) {
+  let getData = yield incomeImportExcelApi(data);
+  if (getData.success && _.has(getData, "data.data")) {
+    yield put(
+      incomeImportExcelFileResponse(SUCCESS_INCOMEIMPORTEXCELFILE, getData.data)
+    );
+  } else {
+    yield put(
+      incomeImportExcelFileResponse(ERROR_INCOMEIMPORTEXCELFILE, getData.data)
+    );
+  }
+}
+export function* incomeImportExcelFileWatcher() {
+  yield takeLatest(INCOMEIMPORTEXCELFILE, incomeImportExcelFileRequest);
 }

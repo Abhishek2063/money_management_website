@@ -84,7 +84,7 @@ const IncomeTable = (props) => {
       {props.totalPage > 1 ? (
         <PaginationFooter
           getPageData={(data) =>
-            getPageData(data, props.userdata, props.dispatch, props.setLoader)
+            getPageData(data, props.userData, props.dispatch, props.setLoader)
           }
           pageNo={props.page}
           totalRecords={props.totalRecords}

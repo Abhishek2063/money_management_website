@@ -41,3 +41,16 @@ export const incomeDeleteByUserIdIncomeIdResponse = (type, data) => ({
   type,
   data,
 });
+
+// incomeImportExcelFile
+export const INCOMEIMPORTEXCELFILE = "INCOMEIMPORTEXCELFILE";
+export const incomeImportExcelFile = (data) => ({
+  type: INCOMEIMPORTEXCELFILE,
+  data,
+});
+export const SUCCESS_INCOMEIMPORTEXCELFILE = "SUCCESS_INCOMEIMPORTEXCELFILE";
+export const ERROR_INCOMEIMPORTEXCELFILE = "ERROR_INCOMEIMPORTEXCELFILE";
+export const incomeImportExcelFileResponse = (type, data) => ({
+  type,
+  data,
+});

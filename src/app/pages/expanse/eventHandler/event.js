@@ -6,6 +6,8 @@ import {
   expanseStore,
   expanseUpdateByUserIdIncomeId,
   Swal,
+  message,
+  expanseImportExcelFile,
 } from "../index";
 export const handlePickUpDateChange = (
   val,
@@ -101,7 +103,11 @@ export const handleSubmitButton = (
   userData
 ) => {
   e.preventDefault();
-  const isFormValid = validateForm(expanseData, expanseDataErr, setExpanseDataErr);
+  const isFormValid = validateForm(
+    expanseData,
+    expanseDataErr,
+    setExpanseDataErr
+  );
   if (isFormValid) {
     // Proceed with registration logic
     setLoader(true);
@@ -124,7 +130,11 @@ export const handleSubmitButton = (
   }
 };
 
-export const validateForm = (expanseData, expanseDataErr, setExpanseDataErr) => {
+export const validateForm = (
+  expanseData,
+  expanseDataErr,
+  setExpanseDataErr
+) => {
   const errors = {};
   // Check if expanseDate is empty
   if (!expanseData.expanseDate) {
@@ -227,7 +237,11 @@ export const handleEditExpanseButton = (
   editExpanseDetailsId
 ) => {
   e.preventDefault();
-  const isFormValid = validateForm(expanseData, expanseDataErr, setExpanseDataErr);
+  const isFormValid = validateForm(
+    expanseData,
+    expanseDataErr,
+    setExpanseDataErr
+  );
   if (isFormValid) {
     // Proceed with registration logic
     setLoader(true);
@@ -275,4 +289,26 @@ export const handleDeleteExpanseDetails = (
       dispatch(expanseDeleteByUserIdIncomeId(deleteUserData));
     }
   });
+};
+
+export const handleFileSelect = (event, userData, dispatch, setLoader) => {
+  if (event.target.files) {
+    const selectedFile = event.target.files[0];
+    console.log(selectedFile, "selectedFile.type");
+    if (
+      selectedFile.type === "text/xlsx" ||
+      selectedFile.type === "text/xls" ||
+      selectedFile.type ===
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    ) {
+      const data = {
+        file: selectedFile,
+        user_id: userData.userId,
+      };
+      dispatch(expanseImportExcelFile(data));
+      setLoader(true);
+    } else {
+      message.error("Only xlsx and xls extension files are allowed.");
+    }
+  }
 };

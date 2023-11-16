@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../../assets/css/Expanse.css";
 import ExpanseModal from "./modal/ExpanseModal";
-import { handleSubmitButton } from "./eventHandler/event";
+import { handleFileSelect, handleSubmitButton } from "./eventHandler/event";
 import ExpanseTable from "./table/ExpanseTable";
 import {
   Button,
@@ -16,6 +16,7 @@ import {
   Loader,
   expanseGetByUserId,
 } from "./index";
+import { ImportOutlined } from "@ant-design/icons";
 const ExpanseMain = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [expanseData, setExpanseData] = useState({
@@ -38,7 +39,8 @@ const ExpanseMain = () => {
   const [totalPage, setTotalPage] = useState(0);
   const [limit, setlimit] = useState(10);
   const [editModalBox, setEditModalBox] = useState(false);
-
+  // Reference to the file input element
+  const fileInputRef = useRef(null);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
@@ -264,11 +266,69 @@ const ExpanseMain = () => {
     prevexpanseDeleteByUserIdIncomeIdData,
   ]);
 
+  const expanseImportExcelFileData = useSelector(
+    (state) => state.expanse.expanseImportExcelFileData
+  );
+  const prevexpanseImportExcelFileData = usePrevious({
+    expanseImportExcelFileData,
+  });
+  useEffect(() => {
+    if (
+      prevexpanseImportExcelFileData &&
+      prevexpanseImportExcelFileData.expanseImportExcelFileData !==
+        expanseImportExcelFileData
+    ) {
+      if (
+        expanseImportExcelFileData &&
+        expanseImportExcelFileData.success === true
+      ) {
+        message.success(expanseImportExcelFileData.message);
+        dispatch(expanseGetByUserId({ user_id: userData.userId, page: page }));
+        setLoader(true);
+      }
+      if (
+        expanseImportExcelFileData &&
+        expanseImportExcelFileData.success === false
+      ) {
+        setLoader(false);
+
+        if (Array.isArray(expanseImportExcelFileData.error)) {
+          message.error("Invalid Data");
+        } else if (typeof expanseImportExcelFileData.error === "string") {
+          message.error(expanseImportExcelFileData.error);
+        } else {
+          message.error("An error occurred."); // Handle other error types as needed
+        }
+      }
+    } // eslint-disable-next-line
+  }, [expanseImportExcelFileData, prevexpanseImportExcelFileData]);
+
   return (
     <>
       <div className="expanse-main">
         <div className="page-name">
           <h2>Expense</h2>
+        </div>
+        {/* Import Data Button */}
+        <div className="add-income-button">
+          <label htmlFor="fileInput">
+            <Button
+              type="button"
+              text="Import Data"
+              className="add-income-button"
+              icon={<ImportOutlined />}
+              onClick={() => fileInputRef.current.click()}
+            />
+          </label>
+          {/* File Input Hidden Element */}
+          <input
+            ref={fileInputRef}
+            id="fileInput"
+            type="file"
+            accept=".xlsx"
+            onChange={(e) => handleFileSelect(e, userData, dispatch, setLoader)}
+            style={{ display: "none" }}
+          />
         </div>
         <div className="add-expanse-button">
           <Button

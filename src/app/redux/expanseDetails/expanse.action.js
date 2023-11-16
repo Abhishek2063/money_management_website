@@ -44,3 +44,16 @@ export const expanseDeleteByUserIdIncomeIdResponse = (type, data) => ({
   type,
   data,
 });
+
+// expanseImportExcelFile
+export const EXPANSEIMPORTEXCELFILE = "EXPANSEIMPORTEXCELFILE";
+export const expanseImportExcelFile = (data) => ({
+  type: EXPANSEIMPORTEXCELFILE,
+  data,
+});
+export const SUCCESS_EXPANSEIMPORTEXCELFILE = "SUCCESS_EXPANSEIMPORTEXCELFILE";
+export const ERROR_EXPANSEIMPORTEXCELFILE = "ERROR_EXPANSEIMPORTEXCELFILE";
+export const expanseImportExcelFileResponse = (type, data) => ({
+  type,
+  data,
+});
