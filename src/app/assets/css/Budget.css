@@ -1,0 +1,100 @@
+/* budgetMain.css */
+.budget-main {
+    background-color: #f0f0f0; /* Use a light gray background color */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow for depth */
+  }
+  
+  .page-name {
+    flex: 1; /* Left side takes all available space */
+  }
+  
+  .add-budget-button {
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .add-budget-button button {
+    background-color: #0074cc;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .add-budget-button button:hover {
+    background-color: #005a9f;
+  }
+  
+  /* Style for the PlusOutlined icon */
+  .add-budget-button .anticon svg {
+    font-size: 20px;
+    margin-right: 5px; /* Add spacing between the icon and text */
+  }
+  
+  /* budgetTable.css */
+  /* Style for the table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px; /* Add spacing between the table and the pagination */
+  }
+  
+  th {
+    background-color: #0074cc; /* Header background color */
+    color: white;
+  }
+  
+  th,
+  td {
+    border: 1px solid #ddd; /* Add borders to table cells */
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2; /* Alternate row background color */
+  }
+  
+  tr:hover {
+    background-color: #e0e0e0; /* Hover row background color */
+  }
+  
+  /* Style for action icons */
+  .edit-icon {
+    color: #0074cc;
+    font-size: 18px;
+    margin-right: 10px; /* Add spacing between icons */
+    cursor: pointer;
+    border: none;
+    background: none;
+  }
+  .delete-icon {
+    color: #cc0700;
+    font-size: 18px;
+    margin-right: 10px; /* Add spacing between icons */
+    cursor: pointer;
+    border: none;
+    background: none;
+  }
+  
+  /* Style for the "No Record Found" message */
+  .no-record-found {
+    text-align: center;
+    padding: 10px;
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+  

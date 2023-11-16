@@ -31,6 +31,12 @@ import {
   incomeStoreWatcher,
   incomeUpdateByUserIdIncomeIdWatcher,
 } from "../redux/incomeDetails/income.saga";
+import {
+  budgetDeleteByUserIdBudgetIdWatcher,
+  budgetGetByUserIdWatcher,
+  budgetStoreWatcher,
+  budgetUpdateByUserIdBudgetIdWatcher,
+} from "../redux/budget/budget.saga";
 
 export function* rootSaga() {
   yield all([
@@ -58,5 +64,9 @@ export function* rootSaga() {
     googleLoginCallbackWatcher(),
     facebookLoginCallbackWatcher(),
     verifyOtpWatcher(),
+    budgetStoreWatcher(),
+    budgetGetByUserIdWatcher(),
+    budgetUpdateByUserIdBudgetIdWatcher(),
+    budgetDeleteByUserIdBudgetIdWatcher(),
   ]);
 }

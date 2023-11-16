@@ -19,41 +19,28 @@ export const GOOGLE_LOGIN_CALLBACK = URL("/auth/google/callback/success");
 export const FACEBOOK_LOGIN_CALLBACK = URL("/auth/facebook/callback/success");
 export const VERIFY_OTP = URL("/auth/verify-otp");
 
-
-
-
 /***** Category Routes*********/
 export const CATEGORYCREATE = URL("/categories/create");
 export const CATEGORYGETBYUSERID = URL("/categories/list");
-export const CATEGORYGETBYUSERIDCATEGORYID = URL(
-  "/categories/get"
-);
-export const CATEGORYGETBYUSERIDCATEGORYTYPE = URL(
-  "/categories/list"
-);
-export const CATEGORYUPDATEBYUSERIDCATEGORYID = URL(
-  "/categories/update"
-);
-export const CATEGORYDELETEBYUSERIDCATEGORYID = URL(
-  "/categories/delete"
-);
+export const CATEGORYGETBYUSERIDCATEGORYID = URL("/categories/get");
+export const CATEGORYGETBYUSERIDCATEGORYTYPE = URL("/categories/list");
+export const CATEGORYUPDATEBYUSERIDCATEGORYID = URL("/categories/update");
+export const CATEGORYDELETEBYUSERIDCATEGORYID = URL("/categories/delete");
 
 /***** Income Routes*********/
 export const INCOMESTORE = URL("/income/create");
 export const INCOMEGETBYUSERID = URL("/income/list");
-export const INCOMEUPDATEBYUSERIDINCOMEID = URL(
-  "/income/update"
-);
-export const INCOMEDELETEBYUSERIDINCOMEID = URL(
-  "/income/delete"
-);
+export const INCOMEUPDATEBYUSERIDINCOMEID = URL("/income/update");
+export const INCOMEDELETEBYUSERIDINCOMEID = URL("/income/delete");
 
 /***** Expanse Routes*********/
 export const EXPANSESTORE = URL("/expanse/create");
 export const EXPANSEGETBYUSERID = URL("/expanse/list");
-export const EXPANSEUPDATEBYUSERIDEXPANSEID = URL(
-  "/expanse/update"
-);
-export const EXPANSEDELETEBYUSERIDINCOMEID = URL(
-  "/expanse/delete"
-);
+export const EXPANSEUPDATEBYUSERIDEXPANSEID = URL("/expanse/update");
+export const EXPANSEDELETEBYUSERIDINCOMEID = URL("/expanse/delete");
+
+/***********Budget Routes******************* */
+export const BUDGETSTORE = URL("/budget/create");
+export const BUDGETGETBYUSERID = URL("/budget/list");
+export const BUDGETUPDATEBYUSERIDBUDGETID = URL("/budget/update");
+export const BUDGETDELETEBYUSERIDBUDGETID = URL("/budget/delete");
