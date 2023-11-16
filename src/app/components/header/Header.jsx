@@ -8,6 +8,7 @@ import {
   CreditCardOutlined,
   HomeOutlined,
   ApartmentOutlined,
+  FundOutlined,
 } from "@ant-design/icons";
 import LogoImage from "../../assets/images/favicon-3.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -96,6 +97,10 @@ const Header = () => {
             </Nav.Link>
             <Nav.Link as={NavLink} to={CATEGORY} className="nav-link">
               <ApartmentOutlined /> Category
+            </Nav.Link>
+           
+            <Nav.Link as={NavLink} to={BUDGET} className="nav-link">
+            <FundOutlined />Budget
             </Nav.Link>
           </Nav>
           <Nav>
