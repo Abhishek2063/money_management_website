@@ -1,7 +1,9 @@
+import { Tokens } from "../../app/storage";
 import { request } from "../request/axios.request";
 import {
   EXPANSEDELETEBYUSERIDINCOMEID,
   EXPANSEGETBYUSERID,
+  EXPANSEIMPORTEXCELFILE,
   EXPANSESTORE,
   EXPANSEUPDATEBYUSERIDEXPANSEID,
 } from "../routing/route";
@@ -50,5 +52,23 @@ export async function expanseDeleteByUserIdIncomeIdApi(data) {
     url: URL,
     method: "delete",
     data: userData,
+  });
+}
+
+// expanseImportExcel api
+export async function expanseImportExcelApi(data) {
+  let userData = data.data;
+  let formData = new FormData();
+  formData.append("file", userData.file);
+  const URL = `${EXPANSEIMPORTEXCELFILE}/${userData.user_id}`;
+  return request({
+    url: URL,
+    method: "post",
+    data: formData,
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: ` ${Tokens.getToken() ? Tokens.getToken() : Tokens.getVerifyToken()
+      }`,
+    },
   });
 }

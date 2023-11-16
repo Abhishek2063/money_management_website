@@ -22,12 +22,14 @@ import {
 import {
   expanseDeleteByUserIdIncomeIdWatcher,
   expanseGetByUserIdWatcher,
+  expanseImportExcelFileWatcher,
   expanseStoreWatcher,
   expanseUpdateByUserIdIncomeIdWatcher,
 } from "../redux/expanseDetails/expanse.saga";
 import {
   incomeDeleteByUserIdIncomeIdWatcher,
   incomeGetByUserIdWatcher,
+  incomeImportExcelFileWatcher,
   incomeStoreWatcher,
   incomeUpdateByUserIdIncomeIdWatcher,
 } from "../redux/incomeDetails/income.saga";
@@ -68,5 +70,7 @@ export function* rootSaga() {
     budgetGetByUserIdWatcher(),
     budgetUpdateByUserIdBudgetIdWatcher(),
     budgetDeleteByUserIdBudgetIdWatcher(),
+    expanseImportExcelFileWatcher(),
+    incomeImportExcelFileWatcher(),
   ]);
 }

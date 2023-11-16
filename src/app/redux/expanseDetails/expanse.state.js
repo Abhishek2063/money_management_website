@@ -3,4 +3,5 @@ export const DEFAULT_STATE = {
   expanseGetByUserIdData: {},
   expanseUpdateByUserIdIncomeIdData: {},
   expanseDeleteByUserIdIncomeIdData: {},
+  expanseImportExcelFileData: {},
 };

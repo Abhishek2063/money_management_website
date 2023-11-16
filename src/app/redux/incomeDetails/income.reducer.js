@@ -2,10 +2,12 @@ import { DEFAULT_STATE } from "./income.state";
 import {
   ERROR_INCOMEDELETEBYUSERIDINCOMEID,
   ERROR_INCOMEGETBYUSERID,
+  ERROR_INCOMEIMPORTEXCELFILE,
   ERROR_INCOMESTORE,
   ERROR_INCOMEUPDATEBYUSERIDINCOMEID,
   SUCCESS_INCOMEDELETEBYUSERIDINCOMEID,
   SUCCESS_INCOMEGETBYUSERID,
+  SUCCESS_INCOMEIMPORTEXCELFILE,
   SUCCESS_INCOMESTORE,
   SUCCESS_INCOMEUPDATEBYUSERIDINCOMEID,
 } from "./income.action";
@@ -51,6 +53,17 @@ export const incomeReducer = (
         ...state,
         incomeDeleteByUserIdIncomeIdData: errorincomeDeleteByUserIdIncomeIdData,
       };
+
+    case SUCCESS_INCOMEIMPORTEXCELFILE:
+      const incomeImportExcelFileData = action.data;
+      return { ...state, incomeImportExcelFileData };
+    case ERROR_INCOMEIMPORTEXCELFILE:
+      const errorincomeImportExcelFileData = action.data;
+      return {
+        ...state,
+        incomeImportExcelFileData: errorincomeImportExcelFileData,
+      };
+
     default:
       return state;
   }

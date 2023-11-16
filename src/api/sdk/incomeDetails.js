@@ -1,7 +1,9 @@
+import { Tokens } from "../../app/storage";
 import { request } from "../request/axios.request";
 import {
   INCOMEDELETEBYUSERIDINCOMEID,
   INCOMEGETBYUSERID,
+  INCOMEIMPORTEXCELFILE,
   INCOMESTORE,
   INCOMEUPDATEBYUSERIDINCOMEID,
 } from "../routing/route";
@@ -50,5 +52,24 @@ export async function incomeDeleteByUserIdIncomeIdApi(data) {
     url: URL,
     method: "delete",
     data: userData,
+  });
+}
+
+// incomeImportExcel api
+export async function incomeImportExcelApi(data) {
+  let userData = data.data;
+  console.log(userData.file,"userData");
+  let formData = new FormData();
+  formData.append("file", userData.file);
+  const URL = `${INCOMEIMPORTEXCELFILE}/${userData.user_id}`;
+  return request({
+    url: URL,
+    method: "post",
+    data: formData,
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: ` ${Tokens.getToken() ? Tokens.getToken() : Tokens.getVerifyToken()
+      }`,
+    },
   });
 }

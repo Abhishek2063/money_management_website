@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../../assets/css/Income.css";
 import IncomeModal from "./modal/IncomeModal";
-import { handleSubmitButton } from "./eventHandler/event";
+import { handleFileSelect, handleSubmitButton } from "./eventHandler/event";
 import IncomeTable from "./table/IncomeTable";
 import {
   Button,
@@ -16,6 +16,7 @@ import {
   Loader,
   incomeGetByUserId,
 } from "./index";
+import { ImportOutlined } from "@ant-design/icons";
 const IncomeMain = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [incomeData, setIncomeData] = useState({
@@ -38,7 +39,8 @@ const IncomeMain = () => {
   const [totalPage, setTotalPage] = useState(0);
   const [limit, setlimit] = useState(10);
   const [editModalBox, setEditModalBox] = useState(false);
-
+  // Reference to the file input element
+  const fileInputRef = useRef(null);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
@@ -251,11 +253,68 @@ const IncomeMain = () => {
     } // eslint-disable-next-line
   }, [incomeDeleteByUserIdIncomeIdData, previncomeDeleteByUserIdIncomeIdData]);
 
+  const incomeImportExcelFileData = useSelector(
+    (state) => state.income.incomeImportExcelFileData
+  );
+  const previncomeImportExcelFileData = usePrevious({
+    incomeImportExcelFileData,
+  });
+  useEffect(() => {
+    if (
+      previncomeImportExcelFileData &&
+      previncomeImportExcelFileData.incomeImportExcelFileData !==
+        incomeImportExcelFileData
+    ) {
+      if (
+        incomeImportExcelFileData &&
+        incomeImportExcelFileData.success === true
+      ) {
+        message.success(incomeImportExcelFileData.message);
+        dispatch(incomeGetByUserId({ user_id: userData.userId, page: page }));
+        setLoader(true);
+      }
+      if (
+        incomeImportExcelFileData &&
+        incomeImportExcelFileData.success === false
+      ) {
+        setLoader(false);
+
+        if (Array.isArray(incomeImportExcelFileData.error)) {
+          message.error("Invalid Data");
+        } else if (typeof incomeImportExcelFileData.error === "string") {
+          message.error(incomeImportExcelFileData.error);
+        } else {
+          message.error("An error occurred."); // Handle other error types as needed
+        }
+      }
+    } // eslint-disable-next-line
+  }, [incomeImportExcelFileData, previncomeImportExcelFileData]);
   return (
     <>
       <div className="income-main">
         <div className="page-name">
           <h2>INCOME</h2>
+        </div>
+        {/* Import Data Button */}
+        <div className="add-income-button">
+          <label htmlFor="fileInput">
+            <Button
+              type="button"
+              text="Import Data"
+              className="add-income-button"
+              icon={<ImportOutlined />}
+              onClick={() => fileInputRef.current.click()}
+            />
+          </label>
+          {/* File Input Hidden Element */}
+          <input
+            ref={fileInputRef}
+            id="fileInput"
+            type="file"
+            accept=".xlsx"
+            onChange={(e) => handleFileSelect(e,userData,dispatch,setLoader)}
+            style={{ display: "none" }}
+          />
         </div>
         <div className="add-income-button">
           <Button

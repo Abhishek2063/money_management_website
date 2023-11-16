@@ -3,4 +3,6 @@ export const DEFAULT_STATE = {
   incomeGetByUserIdData: {},
   incomeUpdateByUserIdIncomeIdData: {},
   incomeDeleteByUserIdIncomeIdData: {},
+  incomeImportExcelFileData: {},
+
 };

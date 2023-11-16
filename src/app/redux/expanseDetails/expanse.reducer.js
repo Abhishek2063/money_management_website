@@ -2,10 +2,12 @@ import { DEFAULT_STATE } from "./expanse.state";
 import {
   ERROR_EXPANSEDELETEBYUSERIDINCOMEID,
   ERROR_EXPANSEGETBYUSERID,
+  ERROR_EXPANSEIMPORTEXCELFILE,
   ERROR_EXPANSESTORE,
   ERROR_EXPANSEUPDATEBYUSERIDEXPANSEID,
   SUCCESS_EXPANSEDELETEBYUSERIDINCOMEID,
   SUCCESS_EXPANSEGETBYUSERID,
+  SUCCESS_EXPANSEIMPORTEXCELFILE,
   SUCCESS_EXPANSESTORE,
   SUCCESS_EXPANSEUPDATEBYUSERIDEXPANSEID,
 } from "./expanse.action";
@@ -52,6 +54,16 @@ export const expanseReducer = (
         ...state,
         expanseDeleteByUserIdIncomeIdData:
           errorexpanseDeleteByUserIdIncomeIdData,
+      };
+
+    case SUCCESS_EXPANSEIMPORTEXCELFILE:
+      const expanseImportExcelFileData = action.data;
+      return { ...state, expanseImportExcelFileData };
+    case ERROR_EXPANSEIMPORTEXCELFILE:
+      const errorexpanseImportExcelFileData = action.data;
+      return {
+        ...state,
+        expanseImportExcelFileData: errorexpanseImportExcelFileData,
       };
 
     default:

@@ -13,6 +13,7 @@ import {
   expanseGetByUserId,
   expanseStore,
   expanseUpdateByUserIdIncomeId,
+  expanseImportExcelFile
 } from "../../redux/expanseDetails/expanse.action";
 import dayjs from "dayjs";
 import Table from "react-bootstrap/Table";
@@ -52,4 +53,5 @@ export {
   expanseStore,
   expanseUpdateByUserIdIncomeId,
   Swal,
+  expanseImportExcelFile
 };

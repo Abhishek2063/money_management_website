@@ -3,8 +3,10 @@ import {
   fieldValidator,
   incomeDeleteByUserIdIncomeId,
   incomeGetByUserId,
+  incomeImportExcelFile,
   incomeStore,
   incomeUpdateByUserIdIncomeId,
+  message,
   Swal,
 } from "../index";
 export const handlePickUpDateChange = (
@@ -275,4 +277,26 @@ export const handleDeleteIncomeDetails = (
       dispatch(incomeDeleteByUserIdIncomeId(deleteUserData));
     }
   });
+};
+
+export const handleFileSelect = (event, userData, dispatch,setLoader) => {
+  if (event.target.files) {
+    const selectedFile = event.target.files[0];
+    console.log(selectedFile, "selectedFile.type");
+    if (
+      selectedFile.type === "text/xlsx" ||
+      selectedFile.type === "text/xls" ||
+      selectedFile.type ===
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    ) {
+      const data = {
+        file: selectedFile,
+        user_id: userData.userId,
+      };
+      dispatch(incomeImportExcelFile(data));
+      setLoader(true)
+    } else {
+      message.error("Only xlsx and xls extension files are allowed.");
+    }
+  }
 };
