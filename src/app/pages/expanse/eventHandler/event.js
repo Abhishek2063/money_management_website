@@ -199,8 +199,8 @@ export const validateForm = (
   return Object.keys(errors).length === 0; // Form is valid if no errors are present
 };
 
-export const getPageData = (page, userdata, dispatch, setLoader) => {
-  dispatch(expanseGetByUserId({ user_id: userdata.userId, page: page }));
+export const getPageData = (page, userData, dispatch, setLoader) => {
+  dispatch(expanseGetByUserId({ user_id: userData.userId, page: page }));
   setLoader(true);
 };
 

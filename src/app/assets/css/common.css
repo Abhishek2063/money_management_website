@@ -17,10 +17,7 @@
 }
 /* Header.css */
 /* Header.css */
-.money-management {
-  display: flex;
-  justify-content: center;
-}
+
 
 .money-management-navbar {
   background: linear-gradient(to right, #4caf50, #2196f3);
@@ -168,4 +165,8 @@
 .pagination a .mdi-navigation-right,
 .pagination .page-link .mdi-navigation-right {
   background-image: url("../images/ico-date-right.png");
+}
+
+.ant-message-notice{
+  z-index: 999999;
 }
