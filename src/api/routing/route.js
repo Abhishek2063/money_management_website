@@ -48,3 +48,9 @@ export const BUDGETSTORE = URL("/budget/create");
 export const BUDGETGETBYUSERID = URL("/budget/list");
 export const BUDGETUPDATEBYUSERIDBUDGETID = URL("/budget/update");
 export const BUDGETDELETEBYUSERIDBUDGETID = URL("/budget/delete");
+
+/***********Dashboard Routes******************* */
+export const GETTOTALINCOMEEXPANSE = URL("/dashboard/getToalIncomeExpanse");
+export const GETEXPANSEBYCATEGORY = URL("/dashboard/getExpenseByCategory");
+export const GETINCOMEEXPANSESUMMARY = URL("/dashboard/getIncomeExpenseSummary");
+export const GETEXPENSEDAYS = URL("/dashboard/getExpenseDays");

@@ -4,12 +4,14 @@ import { expanseReducer } from "../redux/expanseDetails/expanse.reducer";
 import { incomeReducer } from "../redux/incomeDetails/income.reducer";
 import { authReducer } from "../redux/auth/auth.reducer";
 import { budgetReducer } from "../redux/budget/budget.reducer";
+import { dashboardReducer } from "../redux/dashboard/dashboard.reducer";
 export const appReducer = combineReducers({
   auth: authReducer,
   category: categoryReducer,
   expanse: expanseReducer,
   income: incomeReducer,
   budget: budgetReducer,
+  dashboard: dashboardReducer,
 });
 export const rootReducer = (state, action) => {
   if (action.type === "USER_LOGOUT") {

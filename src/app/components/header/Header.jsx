@@ -5,7 +5,6 @@ import {
   DashboardOutlined,
   RadarChartOutlined,
   BankOutlined,
-  CreditCardOutlined,
   HomeOutlined,
   ApartmentOutlined,
   FundOutlined,
@@ -75,7 +74,6 @@ const Header = () => {
       <Navbar
         className="money-management-navbar"
         expand="lg"
-        fixed="top"
         style={{ background: "linear-gradient(to right, #4CAF50, #2196F3)" }}
       >
         <Container>
