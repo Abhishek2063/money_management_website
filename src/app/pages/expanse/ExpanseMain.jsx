@@ -310,12 +310,12 @@ const ExpanseMain = () => {
           <h2>Expense</h2>
         </div>
         {/* Import Data Button */}
-        <div className="add-income-button">
+        <div className="add-expanse-button">
           <label htmlFor="fileInput">
             <Button
               type="button"
               text="Import Data"
-              className="add-income-button"
+              className="add-expanse-button"
               icon={<ImportOutlined />}
               onClick={() => fileInputRef.current.click()}
             />

@@ -39,6 +39,12 @@ import {
   budgetStoreWatcher,
   budgetUpdateByUserIdBudgetIdWatcher,
 } from "../redux/budget/budget.saga";
+import {
+  getExpenseByCategoryWatcher,
+  getExpenseDaysWatcher,
+  getIncomeExpenseSummaryWatcher,
+  getToalIncomeExpanseWatcher,
+} from "../redux/dashboard/dashboard.saga";
 
 export function* rootSaga() {
   yield all([
@@ -72,5 +78,9 @@ export function* rootSaga() {
     budgetDeleteByUserIdBudgetIdWatcher(),
     expanseImportExcelFileWatcher(),
     incomeImportExcelFileWatcher(),
+    getToalIncomeExpanseWatcher(),
+    getExpenseByCategoryWatcher(),
+    getIncomeExpenseSummaryWatcher(),
+    getExpenseDaysWatcher(),
   ]);
 }

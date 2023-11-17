@@ -9,6 +9,8 @@ import {
   Loader,
 } from "./index";
 import "../../assets/css/registration.css";
+import { useNavigate } from "react-router-dom";
+import { LOGIN } from "../../routing/routeConstants";
 const RegistrationMain = () => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -20,7 +22,7 @@ const RegistrationMain = () => {
   });
   const [formDataError, setFormDataError] = useState([]);
   const [loader, setLoader] = useState(false);
-
+  const navigate = useNavigate();
   const registrationData = useSelector((state) => state.auth.registerData);
   const prevregistrationData = usePrevious({ registrationData });
 
@@ -34,8 +36,9 @@ const RegistrationMain = () => {
         _.has(registrationData, "data") &&
         registrationData.success === true
       ) {
-        message.success(registrationData.data);
+        message.success(registrationData.message);
         setLoader(false);
+        navigate(LOGIN);
       }
       if (registrationData && registrationData.success === false) {
         setLoader(false);
@@ -48,7 +51,7 @@ const RegistrationMain = () => {
           message.error("An error occurred."); // Handle other error types as needed
         }
       }
-    }
+    }// eslint-disable-next-line
   }, [registrationData, prevregistrationData]);
   return (
     <div className="registration-container position-relative">
