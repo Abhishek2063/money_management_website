@@ -12,13 +12,29 @@ import {
   usePrevious,
   message,
   getUserDetails,
+  Loader,
+  DateInput,
+  dayjs,
+  SelectInput,
+  Button,
 } from "./index";
 import {
   expanseDaysWiseMonthlyOptions,
+  handleMonthDaySelectChange,
+  handleTotalExpanseIncomeCategorySubmit,
+  handleTotalExpanseIncomeSubmit,
+  handleTotalIncomeExpanseCategoryWiseEndDateChange,
+  handleTotalIncomeExpanseCategoryWiseStartDateChange,
+  handleTotalIncomeExpanseStateEndDateChange,
+  handleTotalIncomeExpanseStateStartDateChange,
+  handleTypeSelectChange,
+  handleexpanseDaysWiseMonthlyStateSubmit,
+  handletotalIncomeTotalExpanseMonthwiseYearWiseStateSubmit,
   totalIncomeExpanseCategoryWiseOption,
   totalIncomeExpanseOption,
   totalIncomeTotalExpanseMonthwiseYearWiseOptions,
 } from "./event";
+import { Select } from "antd";
 
 const DashboardMain = () => {
   const [totalIncomeExpanseData, setTotalIncomeExpanseData] = useState([]);
@@ -33,6 +49,32 @@ const DashboardMain = () => {
   const [expanseDaysWiseMonthlyData, setExpanseDaysWiseMonthlyData] = useState(
     []
   );
+  // ************************************
+  const [
+    totalIncomeExpanseCategoryWiseState,
+    setTotalIncomeExpanseCategoryWiseState,
+  ] = useState({
+    startDate: "",
+    endDate: "",
+  });
+
+  const [totalIncomeExpanseState, setTotalIncomeExpanseState] = useState({
+    startDate: "",
+    endDate: "",
+  });
+
+  const [
+    totalIncomeTotalExpanseMonthwiseYearWiseState,
+    setTotalIncomeTotalExpanseMonthwiseYearWiseState,
+  ] = useState({
+    type: "",
+  });
+
+  const [expanseDaysWiseMonthlyState, setExpanseDaysWiseMonthlyState] =
+    useState({
+      month: "",
+    });
+
   const [loader, setLoader] = useState(false);
   const userData = getUserDetails();
   const dispatch = useDispatch();
@@ -41,7 +83,45 @@ const DashboardMain = () => {
     dispatch(getExpenseByCategory({ user_id: userData.userId }));
     dispatch(getIncomeExpenseSummary({ user_id: userData.userId }));
     dispatch(getExpenseDays({ user_id: userData.userId }));
-  },[]);
+    setLoader(true);
+    // eslint-disable-next-line
+  }, []);
+
+  const { Option } = Select;
+  const type_section_array = ["yearly", "monthly"];
+  // type dropdown handling
+  const typeDropDownList = [];
+  type_section_array.forEach(function (item, i) {
+    typeDropDownList.push(
+      <Option key={i + 1} value={item}>
+        {item}
+      </Option>
+    );
+  });
+
+  const monthDay_section_array = [
+    { id: 1, name: "January" },
+    { id: 2, name: "February" },
+    { id: 3, name: "March" },
+    { id: 4, name: "April" },
+    { id: 5, name: "May" },
+    { id: 6, name: "June" },
+    { id: 7, name: "July" },
+    { id: 8, name: "August" },
+    { id: 9, name: "September" },
+    { id: 10, name: "October" },
+    { id: 11, name: "November" },
+    { id: 12, name: "December" },
+  ];
+  // monthDay dropdown handling
+  const monthDayDropDownList = [];
+  monthDay_section_array.forEach(function (item, i) {
+    monthDayDropDownList.push(
+      <Option key={i + 1} value={item.id}>
+        {item.name}
+      </Option>
+    );
+  });
 
   const getToalIncomeExpanseData = useSelector(
     (state) => state.dashboard.getToalIncomeExpanseData
@@ -50,7 +130,6 @@ const DashboardMain = () => {
     getToalIncomeExpanseData,
   });
   useEffect(() => {
-
     if (
       prevgetToalIncomeExpanseData &&
       prevgetToalIncomeExpanseData.getToalIncomeExpanseData !==
@@ -61,8 +140,8 @@ const DashboardMain = () => {
         getToalIncomeExpanseData.success === true
       ) {
         message.success(getToalIncomeExpanseData.message);
-        setLoader(true);
-        console.log(getToalIncomeExpanseData,"getToalIncomeExpanseData");
+        setLoader(false);
+        console.log(getToalIncomeExpanseData, "getToalIncomeExpanseData");
         setTotalIncomeExpanseData(getToalIncomeExpanseData.data);
       }
       if (
@@ -99,7 +178,7 @@ const DashboardMain = () => {
         getExpenseByCategoryData.success === true
       ) {
         message.success(getExpenseByCategoryData.message);
-        setLoader(true);
+        setLoader(false);
         setTotalIncomeExpanseCategoryWiseData(getExpenseByCategoryData.data);
       }
       if (
@@ -136,7 +215,7 @@ const DashboardMain = () => {
         getIncomeExpenseSummaryData.success === true
       ) {
         message.success(getIncomeExpenseSummaryData.message);
-        setLoader(true);
+        setLoader(false);
         setTotalIncomeTotalExpanseMonthwiseYearWiseData(
           getIncomeExpenseSummaryData.data
         );
@@ -171,7 +250,7 @@ const DashboardMain = () => {
     ) {
       if (getExpenseDaysData && getExpenseDaysData.success === true) {
         message.success(getExpenseDaysData.message);
-        setLoader(true);
+        setLoader(false);
         setExpanseDaysWiseMonthlyData(getExpenseDaysData.data);
       }
       if (getExpenseDaysData && getExpenseDaysData.success === false) {
@@ -187,56 +266,238 @@ const DashboardMain = () => {
       }
     } // eslint-disable-next-line
   }, [getExpenseDaysData, prevgetExpenseDaysData]);
-
-  console.log(totalIncomeExpanseData, "totalIncomeExpanseData");
   return (
     <>
-      <Row className="mt-0">
-        <Col xs={12} md={6} lg={6}>
-          <Chart
-            chartType="PieChart"
-            data={totalIncomeExpanseData}
-            options={totalIncomeExpanseOption}
-            width={"100%"}
-            height={"400px"}
-          />
-        </Col>
-        <Col xs={12} md={6} lg={6}>
-          <Chart
-            chartType="PieChart"
-            data={totalIncomeExpanseCategoryWiseData}
-            options={totalIncomeExpanseCategoryWiseOption}
-            width={"100%"}
-            height={"400px"}
-          />
-        </Col>
-      </Row>
+      <div className="card-container">
+        <Row className="mt-0">
+          <Col xs={12} md={6} lg={6}>
+            <div className="card">
+              <h3>Total Income/Expense</h3>
+              {/* date input field */}
+              <DateInput
+                name="startDate"
+                label=" Start Date"
+                value={
+                  totalIncomeExpanseState.startDate
+                    ? dayjs(totalIncomeExpanseState.startDate)
+                    : ""
+                }
+                onChange={(val) =>
+                  handleTotalIncomeExpanseStateStartDateChange(
+                    val,
+                    totalIncomeExpanseState,
+                    setTotalIncomeExpanseState
+                  )
+                }
+              />
 
-      <Row>
-        <Col>
-          <Chart
-            chartType="Bar"
-            width="100%"
-            height="400px"
-            data={totalIncomeTotalExpanseMonthwiseYearWiseData}
-            options={totalIncomeTotalExpanseMonthwiseYearWiseOptions}
-          />
-        </Col>
-      </Row>
+              <DateInput
+                name="endDate"
+                label=" End Date"
+                value={
+                  totalIncomeExpanseState.endDate
+                    ? dayjs(totalIncomeExpanseState.endDate)
+                    : ""
+                }
+                onChange={(val) =>
+                  handleTotalIncomeExpanseStateEndDateChange(
+                    val,
+                    totalIncomeExpanseState,
+                    setTotalIncomeExpanseState
+                  )
+                }
+              />
+              <div className="add-dashboard-button">
+                <Button
+                  type="button"
+                  text="Submit"
+                  className="submit-button"
+                  onClick={() =>
+                    handleTotalExpanseIncomeSubmit(
+                      dispatch,
+                      totalIncomeExpanseState,
+                      setLoader,
+                      userData
+                    )
+                  }
+                />
+              </div>
+              <Chart
+                chartType="PieChart"
+                data={totalIncomeExpanseData}
+                options={totalIncomeExpanseOption}
+                width={"100%"}
+                height={"400px"}
+              />
+            </div>
+          </Col>
+          <Col xs={12} md={6} lg={6}>
+            <div className="card">
+              <h3>Total Income/Expense Category-wise</h3>
+              {/* date input field */}
+              <DateInput
+                name="startDate"
+                label=" Start Date"
+                value={
+                  totalIncomeExpanseCategoryWiseState.startDate
+                    ? dayjs(totalIncomeExpanseCategoryWiseState.startDate)
+                    : ""
+                }
+                onChange={(val) =>
+                  handleTotalIncomeExpanseCategoryWiseStartDateChange(
+                    val,
+                    totalIncomeExpanseCategoryWiseState,
+                    setTotalIncomeExpanseCategoryWiseState
+                  )
+                }
+              />
 
-       
-      <Row>
-        <Col>
-          <Chart
-            chartType="LineChart"
-            width="100%"
-            height="400px"
-            data={expanseDaysWiseMonthlyData}
-            options={expanseDaysWiseMonthlyOptions}
-          />
-        </Col>
-      </Row>
+              <DateInput
+                name="endDate"
+                label=" End Date"
+                value={
+                  totalIncomeExpanseCategoryWiseState.endDate
+                    ? dayjs(totalIncomeExpanseCategoryWiseState.endDate)
+                    : ""
+                }
+                onChange={(val) =>
+                  handleTotalIncomeExpanseCategoryWiseEndDateChange(
+                    val,
+                    totalIncomeExpanseCategoryWiseState,
+                    setTotalIncomeExpanseCategoryWiseState
+                  )
+                }
+              />
+              <div className="add-dashboard-button">
+                <Button
+                  type="button"
+                  text="Submit"
+                  className="submit-button"
+                  onClick={() =>
+                    handleTotalExpanseIncomeCategorySubmit(
+                      dispatch,
+                      totalIncomeExpanseCategoryWiseState,
+                      setLoader,
+                      userData
+                    )
+                  }
+                />
+              </div>
+              <Chart
+                chartType="PieChart"
+                data={totalIncomeExpanseCategoryWiseData}
+                options={totalIncomeExpanseCategoryWiseOption}
+                width={"100%"}
+                height={"400px"}
+              />
+            </div>
+          </Col>
+        </Row>
 
+        <Row className="mt-4">
+          <Col>
+          <div className="card">
+              <h3>Total Income/Expense Month-wise & Year-wise</h3>
+          <Row>
+          <Col xs={12} md={6} lg={6}>
+          <SelectInput
+                name="type"
+                label="Select Type"
+                value={totalIncomeTotalExpanseMonthwiseYearWiseState.type}
+                onChange={(value) =>
+                  handleTypeSelectChange(
+                    value,
+                    totalIncomeTotalExpanseMonthwiseYearWiseState,
+                    setTotalIncomeTotalExpanseMonthwiseYearWiseState
+                  )
+                }
+                selectOptionArray={typeDropDownList}
+              />
+            </Col>
+            <Col xs={12} md={6} lg={6}>
+        
+              
+              <div className="add-dashboard-button">
+                <Button
+                  type="button"
+                  text="Submit"
+                  className="submit-button"
+                  onClick={() =>
+                    handletotalIncomeTotalExpanseMonthwiseYearWiseStateSubmit(
+                      dispatch,
+                      totalIncomeTotalExpanseMonthwiseYearWiseState,
+                      setLoader,
+                      userData
+                    )
+                  }
+                />
+              </div>
+            </Col>
+          </Row>
+           
+              <Chart
+                chartType="Bar"
+                width="100%"
+                height="400px"
+                data={totalIncomeTotalExpanseMonthwiseYearWiseData}
+                options={totalIncomeTotalExpanseMonthwiseYearWiseOptions}
+              />
+            </div>
+          </Col>
+        </Row>
+
+        <Row className="mt-4">
+          <Col>
+            <div className="card">
+              <h3>Expense Days-wise Monthly</h3>
+              <Row>
+                <Col xs={12} md={6} lg={6}>
+                  <SelectInput
+                    name="month"
+                    label="Select Month"
+                    value={expanseDaysWiseMonthlyState.month}
+                    onChange={(value) =>
+                      handleMonthDaySelectChange(
+                        value,
+                        expanseDaysWiseMonthlyState,
+                        setExpanseDaysWiseMonthlyState
+                      )
+                    }
+                    selectOptionArray={monthDayDropDownList}
+                  />
+                </Col>
+                <Col xs={12} md={6} lg={6}>
+                  <div className="add-dashboard-button mt-4">
+                    <Button
+                      type="button"
+                      text="Submit"
+                      className="submit-button"
+                      onClick={() =>
+                        handleexpanseDaysWiseMonthlyStateSubmit(
+                          dispatch,
+                          expanseDaysWiseMonthlyState,
+                          setLoader,
+                          userData
+                        )
+                      }
+                    />
+                  </div>
+                </Col>
+              </Row>
+
+              <Chart
+                chartType="LineChart"
+                width="100%"
+                height="400px"
+                data={expanseDaysWiseMonthlyData}
+                options={expanseDaysWiseMonthlyOptions}
+              />
+            </div>
+          </Col>
+        </Row>
+      </div>
+
+      {loader && <Loader />}
     </>
   );
 };
